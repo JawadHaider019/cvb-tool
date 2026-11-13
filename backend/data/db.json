@@ -1,0 +1,243 @@
+{
+  "sections": [
+    {
+      "id": "hero",
+      "label": "Hero-Bereich",
+      "visible": true,
+      "order": 1,
+      "badge": "CARAVAN-VERMIETER-BUND // SELBSTFAHRERVERMIETVERSICHERUNG",
+      "title": "Wohnmobil und Wohnwagen vermieten und versichern",
+      "subtitle": "Spezialisierte Selbstfahrervermietversicherung für gewerbliche und ambitionierte Vermieter — bereits ab dem 1. Fahrzeug. Berechnen Sie jetzt Ihren Jahrestarif 2027.",
+      "ctaText": "Tarif jetzt berechnen",
+      "secondaryCtaText": "Fragen & Beratung",
+      "image": "/images/luxury_camper_hero.jpg",
+      "imageAlt": "Wohnmobil für die Vermietung am See bei Sonnenuntergang"
+    },
+    {
+      "id": "intro",
+      "label": "Überblick & Service (Intro)",
+      "visible": true,
+      "order": 2,
+      "badge": "FÜR WOHNMOBIL- UND WOHNWAGEN-VERMIETER",
+      "title": "Versicherungslösungen für Selbstfahrervermietung",
+      "subtitle": "Beim Caravan-Vermieter-Bund (CVB) erhalten Sie rechtssichere, praxiserprobte Versicherungskonzepte speziell für Mietfahrzeuge.",
+      "body": "Ob Einzelvermieter mit einem Wohnmobil oder wachsende Flotte: Herkömmliche Privat-Policen schließen die gewerbliche Selbstfahrervermietung aus. Mit unseren Rahmenverträgen CVB-Plus, CVB-Premium und CVB-Flex sichern Sie Haftpflicht, Vollkasko, Teilkasko und Veruntreuung transparent und zuverlässig ab — bereits ab dem 1. Wohnmobil oder Wohnwagen. Für Vermieter ab 10 Fahrzeugen bieten wir zudem individuelle Flottenlösungen an.",
+      "image": "/images/hero_motorhome_handover.jpg",
+      "imageAlt": "Übergabe eines gemieteten Wohnmobils"
+    },
+    {
+      "id": "calculator",
+      "label": "Versicherungs-Preisrechner",
+      "visible": true,
+      "order": 3,
+      "badge": "LIVE-TARIFRECHNER 2027",
+      "title": "Ihren passenden CVB-Tarif sofort berechnen",
+      "subtitle": "Wählen Sie Fahrzeugart, Kaufpreis, Baujahr und Veruntreuungsschutz. Sie sehen sofort alle verfügbaren Tarife im direkten Vergleich."
+    },
+    {
+      "id": "plans",
+      "label": "Die CVB-Lösungen im Detail",
+      "visible": true,
+      "order": 4,
+      "badge": "TARIFÜBERSICHT",
+      "title": "Die CVB-Lösungen im Detail",
+      "subtitle": "Drei abgestimmte Konzepte für unterschiedliche Anforderungen — vom bewährten Allrounder bis zum flexiblen Tarif für erfahrene Vermieter."
+    },
+    {
+      "id": "trust",
+      "label": "Vorteile & Vertrauen (CVB)",
+      "visible": true,
+      "order": 5,
+      "badge": "WARUM ÜBER DEN CVB VERSICHERN?",
+      "title": "Ein Ansprechpartner, klare Regeln, speziell für Vermieter",
+      "subtitle": "Als B2B-Netzwerk für professionelle Wohnmobil- und Caravan-Vermieter kennen wir die Praxis der Fahrzeugvermietung bis ins Detail.",
+      "image": "/images/luxury_motorhome_alps.jpg",
+      "imageAlt": "Wohnmobil in den Alpen",
+      "items": [
+        {
+          "title": "Speziell für Selbstfahrervermietfahrzeuge",
+          "text": "Keine Grauzonen wie bei privaten Kfz-Policen — alle Tarife sind ausdrücklich für die gewerbliche und private Vermietung an Selbstfahrer konzipiert."
+        },
+        {
+          "title": "Persönliche Beratung & ein Ansprechpartner",
+          "text": "Von der Fahrzeugzulassung über die eVB-Nummer bis zum Schadenfall steht Ihnen ein spezialisiertes Team direkt zur Seite."
+        },
+        {
+          "title": "Ab dem 1. Fahrzeug bis zur Flotte",
+          "text": "Einstieg bereits mit einem einzelnen Wohnmobil oder Wohnwagen möglich — mit klaren Jahresbeiträgen ohne versteckte Überraschungen."
+        },
+        {
+          "title": "Unterschlagung & Zubehör abgesichert",
+          "text": "Je nach Tarif ist das Veruntreuungsrisiko bei ordnungsgemäßer Übergabe sowie typisches Campingzubehör bereits mitversichert."
+        }
+      ]
+    },
+    {
+      "id": "faq",
+      "label": "Häufige Fragen (FAQ)",
+      "visible": true,
+      "order": 6,
+      "badge": "FAQ",
+      "title": "Häufige Fragen zur Vermietversicherung",
+      "subtitle": "Antworten auf die wichtigsten Fragen rund um Wechsel, Zulassung, Wohnwagen und Flottenlösungen."
+    },
+    {
+      "id": "contact",
+      "label": "Kontakt & Persönliche Anfrage",
+      "visible": true,
+      "order": 7,
+      "badge": "KONTAKT",
+      "title": "Fragen oder individuelles Fahrzeug außerhalb der Tabelle?",
+      "subtitle": "Senden Sie uns direkt Ihre Anfrage — wir melden uns zeitnah persönlich bei Ihnen."
+    }
+  ],
+  "insuranceConfig": {
+    "cvbPlus": {
+      "name": "CVB-Plus",
+      "deductible": 1500,
+      "wohnmobil": {
+        "minV": 50000,
+        "maxV": 90000,
+        "thresholdV": 72000,
+        "priceStep1": 3082.99,
+        "priceStep2": 3381.44
+      },
+      "wohnwagen": {
+        "minV": 6000,
+        "maxV": 35000,
+        "price": 1196.66
+      },
+      "benefits": [
+        "Kfz-Haftpflichtversicherung: 100 Mio. € pauschal, bei Personenschäden max. 15 Mio. € je geschädigte Person",
+        "Vollkasko inkl. Teilkasko",
+        "GAP-Deckung für geleaste und kreditfinanzierte Fahrzeuge (beitragsfrei enthalten)",
+        "Unterschlagung mitversichert (bei Identitätsprüfung und bargeldloser Zahlung bei Fahrzeugübergabe)",
+        "Zubehör mitversichert: Vorzelte, Markisen, Fahrradträger, Gasanlagen, Klimaanlagen, Satellitenschüsseln (im Rahmen der angegebenen Gesamtwerte)"
+      ]
+    },
+    "cvbPremium": {
+      "name": "CVB-Premium",
+      "deductible": 1500,
+      "maxGrossValue": 150000,
+      "wohnmobil": {
+        "minV": 50000,
+        "maxV": 90000,
+        "price": 3250
+      },
+      "wohnwagen": {
+        "minV": 6000,
+        "maxV": 35000,
+        "price": 1330
+      },
+      "benefits": [
+        "Kfz-Haftpflichtversicherung für Wohnmobile/Wohnwagen bis 150.000 € brutto: 100 Mio. € pauschal, bei Personenschäden max. 15 Mio. € je geschädigte Person",
+        "Vollkasko inkl. Teilkasko",
+        "Unterschlagung mitversichert (Selbstbeteiligung dafür: 20 % des Erstattungswertes, mindestens 5.000 €; Identitätsprüfung und bargeldlose Zahlung erforderlich, bevorzugt Banküberweisung)",
+        "Zubehör mitversichert: Vorzelte, Markisen, Fahrradträger, Gasanlagen, Klimaanlagen, Satellitenschüsseln (Sonderausstattung bis max. 10.000 €)"
+      ]
+    },
+    "cvbFlex": {
+      "name": "CVB-Flex",
+      "deductible": 1000,
+      "maxKaskoAge": 20,
+      "liabilityOnlyLabel": "Ab 21 Jahren Fahrzeugalter: nur Haftpflichtversicherung möglich",
+      "wohnmobil": {
+        "haftpflicht": 847,
+        "kaskoRatePercent": 2.9,
+        "minVForKasko": 50000,
+        "schutzbrief": 85,
+        "hasSchutzbrief": true,
+        "maxInsuredValue": 250000,
+        "veruntreuungStep1MaxV": 60000,
+        "veruntreuungStep1Surcharge": 357,
+        "veruntreuungStep2MaxV": 75000,
+        "veruntreuungStep2Surcharge": 446.25,
+        "aboveVeruntreuungStatus": "k. A.",
+        "liabilityOnlySurchargePercent": 20
+      },
+      "wohnwagen": {
+        "haftpflicht": 313,
+        "kaskoRatePercent": 3.3,
+        "minVForKasko": 20000,
+        "schutzbrief": 0,
+        "hasSchutzbrief": false,
+        "maxInsuredValue": 250000,
+        "veruntreuungStep1MaxV": 15000,
+        "veruntreuungStep1Surcharge": 119,
+        "veruntreuungStep2MaxV": 25000,
+        "veruntreuungStep2Surcharge": 178.5,
+        "aboveVeruntreuungStatus": "Preis auf Anfrage",
+        "liabilityOnlySurchargePercent": 20
+      },
+      "benefits": [
+        "Kfz-Haftpflichtversicherung: 100 Mio. € pauschal, max. 12 Mio. € je Person",
+        "Vollkasko und Teilkasko (für Fahrzeuge bis 20 Jahre)",
+        "Schutzbrief für Wohnmobile enthalten",
+        "Veruntreuungsschutz optional zubuchbar",
+        "Verzicht auf Abzug „neu für alt“ bei Fahrzeugen bis 10 Jahre",
+        "Höchstversicherungssumme 250.000 €"
+      ]
+    },
+    "priceFootnote": "Alle Preise sind Jahresbeiträge inkl. Versicherungssteuer. Selbstbeteiligung je Schadenfall."
+  },
+  "faqs": [
+    {
+      "id": "faq-1",
+      "question": "Wie wird gewechselt wenn der Wagen angemeldet ist ?",
+      "answer": "Ein Versicherungswechsel bei bereits zugelassenen Fahrzeugen ist unkompliziert möglich. Wir prüfen gemeinsam den Kündigungszeitpunkt Ihres bestehenden Vertrags und stellen Ihnen rechtzeitig die neue eVB-Nummer für die Umstellung als Selbstfahrervermietfahrzeug zur Verfügung.",
+      "sortOrder": 1,
+      "visible": true
+    },
+    {
+      "id": "faq-2",
+      "question": "Unser Fahrzeug ist privat angemeldet, kann ich zu einer Vermieter Versicherung wechseln ?",
+      "answer": "Ja. Sobald das Fahrzeug vermietet wird, ist eine klassische Privatversicherung in der Regel nicht mehr ausreichend. Wir unterstützen Sie beim sauberen Übergang in eine anerkannte Selbstfahrervermietversicherung über den CVB.",
+      "sortOrder": 2,
+      "visible": true
+    },
+    {
+      "id": "faq-3",
+      "question": "Warum kostet der CVB Geld ?",
+      "answer": "Der CVB ist ein spezialisiertes B2B-Netzwerk für gewerbliche und private Wohnmobil- und Wohnwagenvermieter. Durch den jährlichen Mitgliedsbeitrag von 249,- € netto pro Fahrzeug verhandelt der CVB exklusive Rahmenverträge mit führenden Versicherern, stellt praxiserprobte Mietverträge, digitale Einweisungstools und persönliche Betreuung im Schadenfall bereit — Konditionen, die ein Einzelvermieter am freien Markt nicht erhält.",
+      "sortOrder": 3,
+      "visible": true
+    },
+    {
+      "id": "faq-4",
+      "question": "Finde ich, als Wohnwagenvermieter, auch eine Lösung",
+      "answer": "Ja, alle drei CVB-Tarife (CVB-Plus, CVB-Premium und CVB-Flex) bieten spezielle Konditionen für vermietete Wohnwagen. Wählen Sie im Rechner oben einfach „Wohnwagen“ aus.",
+      "sortOrder": 4,
+      "visible": true
+    },
+    {
+      "id": "faq-5",
+      "question": "Wir haben mehr als 10 Fahrzeuge, habt Ihr da Lösungen ?",
+      "answer": "Ja! Für Vermieter ab 10 Fahrzeugen bieten wir über den Caravan-Vermieter-Bund attraktive Flottenlösungen mit individuellen Rahmenvereinbarungen an. Nutzen Sie einfach unser Anfrageformular für ein persönliches Angebot.",
+      "sortOrder": 5,
+      "visible": true
+    },
+    {
+      "id": "faq-6",
+      "question": "Was ist beim Versicherungswechsel zu beachten ?",
+      "answer": "Achten Sie auf die Kündigungsfristen Ihres bisherigen Versicherers sowie auf die korrekte Eintragung als Selbstfahrervermietfahrzeug bei der Zulassungsstelle. Bei Fragen begleiten wir Sie Schritt für Schritt durch den gesamten Prozess.",
+      "sortOrder": 6,
+      "visible": true
+    }
+  ],
+  "requests": [],
+  "generalSettings": {
+    "recipientEmail": "Versicherungsanfrage@caravan-vermieter-bund.de",
+    "senderName": "SelbstfahrerVermietversicherung.online",
+    "contactEmail": "info@caravan-vermieter-bund.de",
+    "contactPhone": "+49 (0) 172 21 111 89",
+    "companyName": "Caravan-Vermieter-Bund (CVB) / DS-Caravaning GmbH",
+    "companyAddress": "Wiesenstr. 48, 41372 Niederkrüchten",
+    "cvbWebsiteUrl": "https://caravan-vermieter-bund.de",
+    "pageTitle": "SelbstfahrerVermietversicherung.online | CVB Versicherungsrechner für Wohnmobil & Wohnwagen",
+    "pageDescription": "Selbstfahrervermietversicherung für Wohnmobile und Wohnwagen vom Caravan-Vermieter-Bund (CVB). Jetzt CVB-Plus, CVB-Premium und CVB-Flex 2027 live berechnen und unverbindlich anfragen.",
+    "tickerText": "OFFIZIELLE SELBSTFAHRERVERMIETVERSICHERUNG DES CARAVAN-VERMIETER-BUND (CVB) ✦ TARIFE 2027 LIVE BERECHNEN ✦ WOHNMOBIL & WOHNWAGEN AB DEM 1. FAHRZEUG ✦ PERSÖNLICHE BERATUNG"
+  },
+  "adminPasswordHash": "36299a9d011bf131a5bee6d51e2aa83f:fec794db2fab6481b3c98056be502fbb393c1668674c805c1da8d2c1641ff47be9f96635c6f8aa7d4aac25458466385e5e19a5b247511b9dd0483a5bfd6b3678",
+  "versionHistory": {},
+  "auditLog": []
+}
