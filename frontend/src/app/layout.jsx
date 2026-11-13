@@ -1,4 +1,5 @@
 import { DM_Sans, League_Spartan } from 'next/font/google';
+import { CustomCursor } from '@/components/CustomCursor.jsx';
 import './globals.css';
 
 const dmSans = DM_Sans({
@@ -36,6 +37,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="de" className={`${dmSans.variable} ${leagueSpartan.variable}`}>
       <body className="bg-[#FFFFFF] text-[#585828] antialiased selection:bg-[#A09048] selection:text-white">
+        <CustomCursor />
         {children}
       </body>
     </html>

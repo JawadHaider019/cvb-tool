@@ -8,6 +8,7 @@ import {
   Caravan,
   ShieldCheck,
   Repeat,
+  HelpCircle,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ScrollReveal } from './ScrollReveal.jsx';
@@ -104,15 +105,30 @@ export const FaqSection = ({
       <div className="absolute top-1/2 right-1/4 w-[600px] h-[600px] bg-[#A09048]/10 rounded-full blur-[150px] pointer-events-none" />
 
       <div className="relative max-w-[1400px] mx-auto px-4 sm:px-10 lg:px-14">
-        {/* Section Header matching Screenshot 1 */}
+        {/* Split Header matching cvb-office */}
         <ScrollReveal>
-          <div className="mb-10 sm:mb-14 space-y-2">
-            <h2 className="font-spartan text-3xl sm:text-4xl lg:text-[46px] font-black tracking-tight text-[#889028]">
-              FAQ
-            </h2>
-            <p className="text-base sm:text-lg text-[#384808] font-normal leading-relaxed">
-              Häufige Fragen
-            </p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-end mb-10 sm:mb-16 pb-6 sm:pb-8 border-b border-[#A09048]/20">
+            <div className="lg:col-span-7 xl:col-span-8">
+              <div className="tech-tag mb-4">
+                <HelpCircle size={13} className="text-[#889028] shrink-0" strokeWidth={2.4} />
+                <span className="font-spartan font-bold text-xs uppercase tracking-wider text-[#384808]">
+                  HÄUFIG GESTELLTE FRAGEN
+                </span>
+              </div>
+
+              <h2 className="font-spartan text-[28px] sm:text-5xl lg:text-6xl font-black uppercase text-[#384808] leading-[1.05] sm:leading-[1.02] tracking-tight">
+                FAQ · HÄUFIGE{' '}
+                <span className="text-[#889028]">
+                  FRAGEN<span className="text-[#A09048]">.</span>
+                </span>
+              </h2>
+            </div>
+
+            <div className="lg:col-span-5 xl:col-span-4 flex flex-col justify-end">
+              <p className="text-sm sm:text-base text-[#585828] font-normal leading-relaxed">
+                Antworten auf die wichtigsten Fragen rund um Wechsel, Zulassung, Wohnwagen und Flottenlösungen beim CVB.
+              </p>
+            </div>
           </div>
         </ScrollReveal>
 

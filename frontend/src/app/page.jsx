@@ -22,10 +22,8 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <Header />
-
       <main className="flex-1">
-        {/* 1. Hero Section matching Screenshot 5 */}
+        {/* 1. Unified Hero + Navbar in Same Container with Dark Olive Overlay */}
         <HeroSection section={heroSection} />
 
         {/* 2. Besser Vermieten mit dem CVB + Ablauf und Informationen */}
@@ -37,11 +35,13 @@ export default function HomePage() {
         {/* 4. Für jeden das passende Paket (Comparison Matrix) matching Screenshot 3 */}
         <ComparisonTableSection />
 
-        {/* 5. Live-Tarifrechner 2027 (Kernfunktion aus dem Project Brief) */}
-        <CalculatorSection
-          section={calcSection}
-          config={db.insuranceConfig}
-        />
+        {/* 5. Live-Tarifrechner 2027 (Ausgeblendet auf Kundenwunsch) */}
+        {calcSection?.visible && (
+          <CalculatorSection
+            section={calcSection}
+            config={db.insuranceConfig}
+          />
+        )}
 
         {/* 6. CVB Vermieter-APP matching Screenshot 4 */}
         <AppSection />
@@ -52,11 +52,13 @@ export default function HomePage() {
           contactEmail={db.generalSettings.contactEmail}
         />
 
-        {/* 8. Kontakt */}
-        <ContactSection
-          section={contactSection}
-          settings={db.generalSettings}
-        />
+        {/* 8. Kontakt (Ausgeblendet auf Kundenwunsch) */}
+        {contactSection?.visible && (
+          <ContactSection
+            section={contactSection}
+            settings={db.generalSettings}
+          />
+        )}
       </main>
 
       {/* 9. Footer matching Screenshot 1 */}

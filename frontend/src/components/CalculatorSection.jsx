@@ -109,8 +109,10 @@ export const CalculatorSection = ({
     >
       <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12 space-y-10">
         <SectionHeader
-          title={section.title || 'Ihren passenden CVB-Tarif sofort berechnen'}
-          subtitle={section.subtitle || 'Wählen Sie Fahrzeugart, Kaufpreis, Baujahr und Veruntreuungsschutz.'}
+          badge="LIVE-TARIFRECHNER 2027"
+          title="Ihren passenden CVB-Tarif"
+          accentWord="sofort berechnen"
+          subtitle="Wählen Sie Fahrzeugart, Kaufpreis, Baujahr und Veruntreuungsschutz. Vergleichen Sie sofort alle verfügbaren CVB-Tarife in Echtzeit."
         />
 
         {/* 4 Calculator Inputs Card */}

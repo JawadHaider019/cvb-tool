@@ -273,7 +273,7 @@ export function createDefaultDatabase() {
       pageDescription:
         'Selbstfahrervermietversicherung für Wohnmobile und Wohnwagen vom Caravan-Vermieter-Bund (CVB). Jetzt CVB-Plus, CVB-Premium und CVB-Flex 2027 live berechnen und unverbindlich anfragen.',
       tickerText:
-        'OFFIZIELLE SELBSTFAHRERVERMIETVERSICHERUNG DES CARAVAN-VERMIETER-BUND (CVB) ✦ TARIFE 2027 LIVE BERECHNEN ✦ WOHNMOBIL & WOHNWAGEN AB DEM 1. FAHRZEUG ✦ PERSÖNLICHE BERATUNG',
+        'OFFIZIELLE SELBSTFAHRERVERMIETVERSICHERUNG DES CARAVAN-VERMIETER-BUND (CVB) · TARIFE 2027 LIVE BERECHNEN · WOHNMOBIL & WOHNWAGEN AB DEM 1. FAHRZEUG · PERSÖNLICHE BERATUNG',
     },
     adminPasswordHash: hashPassword(defaultPassword),
     versionHistory: {},

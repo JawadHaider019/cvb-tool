@@ -5,13 +5,13 @@
       "label": "Hero-Bereich",
       "visible": true,
       "order": 1,
-      "badge": "CARAVAN-VERMIETER-BUND // SELBSTFAHRERVERMIETVERSICHERUNG",
+      "badge": "CARAVAN-VERMIETER-BUND · SELBSTFAHRERVERMIETVERSICHERUNG",
       "title": "Wohnmobil und Wohnwagen vermieten und versichern",
       "subtitle": "Spezialisierte Selbstfahrervermietversicherung für gewerbliche und ambitionierte Vermieter — bereits ab dem 1. Fahrzeug. Berechnen Sie jetzt Ihren Jahrestarif 2027.",
       "ctaText": "Tarif jetzt berechnen",
       "secondaryCtaText": "Fragen & Beratung",
-      "image": "/images/luxury_camper_hero.jpg",
-      "imageAlt": "Wohnmobil für die Vermietung am See bei Sonnenuntergang"
+      "image": "/images/luxury_motorhome_alps.jpg",
+      "imageAlt": "Modernes Reisemobil für Vermieter in den Alpen"
     },
     {
       "id": "intro",
@@ -28,7 +28,7 @@
     {
       "id": "calculator",
       "label": "Versicherungs-Preisrechner",
-      "visible": true,
+      "visible": false,
       "order": 3,
       "badge": "LIVE-TARIFRECHNER 2027",
       "title": "Ihren passenden CVB-Tarif sofort berechnen",
@@ -84,7 +84,7 @@
     {
       "id": "contact",
       "label": "Kontakt & Persönliche Anfrage",
-      "visible": true,
+      "visible": false,
       "order": 7,
       "badge": "KONTAKT",
       "title": "Fragen oder individuelles Fahrzeug außerhalb der Tabelle?",
@@ -235,7 +235,7 @@
     "cvbWebsiteUrl": "https://caravan-vermieter-bund.de",
     "pageTitle": "SelbstfahrerVermietversicherung.online | CVB Versicherungsrechner für Wohnmobil & Wohnwagen",
     "pageDescription": "Selbstfahrervermietversicherung für Wohnmobile und Wohnwagen vom Caravan-Vermieter-Bund (CVB). Jetzt CVB-Plus, CVB-Premium und CVB-Flex 2027 live berechnen und unverbindlich anfragen.",
-    "tickerText": "OFFIZIELLE SELBSTFAHRERVERMIETVERSICHERUNG DES CARAVAN-VERMIETER-BUND (CVB) ✦ TARIFE 2027 LIVE BERECHNEN ✦ WOHNMOBIL & WOHNWAGEN AB DEM 1. FAHRZEUG ✦ PERSÖNLICHE BERATUNG"
+    "tickerText": "OFFIZIELLE SELBSTFAHRERVERMIETVERSICHERUNG DES CARAVAN-VERMIETER-BUND (CVB) · TARIFE 2027 LIVE BERECHNEN · WOHNMOBIL & WOHNWAGEN AB DEM 1. FAHRZEUG · PERSÖNLICHE BERATUNG"
   },
   "adminPasswordHash": "36299a9d011bf131a5bee6d51e2aa83f:fec794db2fab6481b3c98056be502fbb393c1668674c805c1da8d2c1641ff47be9f96635c6f8aa7d4aac25458466385e5e19a5b247511b9dd0483a5bfd6b3678",
   "versionHistory": {},
