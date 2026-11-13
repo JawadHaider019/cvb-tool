@@ -98,9 +98,7 @@ export const ComparisonTableSection = ({ onSelectPlan }) => {
     <section id="pakete" className="py-16 sm:py-22 bg-[#FFFFFF] border-b border-[#A09048]/20">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12 space-y-10">
         <SectionHeader
-          badge="PREISE AB DEM 1. FAHRZEUG"
           title="Für jeden das passende Paket"
-          accentWord="FÜR DEINEN BEDARF"
           subtitle="Maßgeschneiderte Lösungen für Deinen Bedarf"
         />
 

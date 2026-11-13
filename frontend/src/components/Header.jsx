@@ -28,25 +28,13 @@ export const Header = ({ tickerText }) => {
   };
 
   return (
-    <>
-      {/* Top Announcement Ticker */}
-      <div className="bg-[#384808] text-[#F4F2E6] overflow-hidden py-1.5 sm:py-2 px-4 font-spartan font-bold text-[10px] sm:text-[11px] uppercase tracking-[0.12em] select-none border-b border-[#A09048]/35 relative z-50">
-        <div className="animate-marquee flex items-center gap-8 whitespace-nowrap">
-          <span className="flex items-center gap-6">{tickerText}</span>
-          <span className="flex items-center gap-6" aria-hidden="true">
-            {tickerText}
-          </span>
-        </div>
-      </div>
-
-      {/* Sticky Glassmorphism Navbar */}
-      <header
-        className={`sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b transition-all duration-300 ${
-          isScrolled
-            ? 'border-[#A09048]/35 shadow-[0_4px_24px_-4px_rgba(56,72,8,0.08)] py-2.5 sm:py-3'
-            : 'border-[#A09048]/25 shadow-xs py-3 sm:py-4'
-        }`}
-      >
+    <header
+      className={`sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b transition-all duration-300 ${
+        isScrolled
+          ? 'border-[#A09048]/35 shadow-[0_4px_24px_-4px_rgba(56,72,8,0.08)] py-2.5 sm:py-3'
+          : 'border-[#A09048]/25 shadow-xs py-3 sm:py-4'
+      }`}
+    >
         <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-10 flex items-center justify-between gap-4">
           <Link
             href="/"
@@ -131,7 +119,6 @@ export const Header = ({ tickerText }) => {
           </div>
         )}
       </header>
-    </>
   );
 };
 

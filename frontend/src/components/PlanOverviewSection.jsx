@@ -95,10 +95,8 @@ export const PlanOverviewSection = ({
     <section id="loesungen" className="py-16 sm:py-22 bg-[#FBFBFA] border-b border-[#A09048]/20">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12 space-y-12">
         <SectionHeader
-          badge={section?.badge || 'DIE CVB-LÖSUNGEN'}
           title="Die CVB-Lösungen im Detail"
-          accentWord="IM DETAIL"
-          subtitle="Kurzvorstellung der einzelnen CVB-Lösungen — abgestimmt auf Ihre Vermietpraxis."
+          subtitle="Kurzvorstellung der einzelnen CVB-Lösungen"
         />
 
         {/* Row 1: The 3 Main Solution Cards */}

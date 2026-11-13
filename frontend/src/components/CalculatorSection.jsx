@@ -109,10 +109,8 @@ export const CalculatorSection = ({
     >
       <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12 space-y-10">
         <SectionHeader
-          badge={section.badge}
-          title={section.title}
-          accentWord="2027"
-          subtitle={section.subtitle}
+          title={section.title || 'Ihren passenden CVB-Tarif sofort berechnen'}
+          subtitle={section.subtitle || 'Wählen Sie Fahrzeugart, Kaufpreis, Baujahr und Veruntreuungsschutz.'}
         />
 
         {/* 4 Calculator Inputs Card */}

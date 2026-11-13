@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Smartphone, Download, HelpCircle, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Download } from 'lucide-react';
 import { ScrollReveal } from './ScrollReveal.jsx';
 import { SectionHeader } from './SectionHeader.jsx';
 import { TiltCard3D } from './TiltCard3D.jsx';
@@ -17,72 +17,46 @@ export const AppSection = () => {
 
   return (
     <section id="app" className="py-16 sm:py-22 bg-[#FFFFFF] border-b border-[#A09048]/20 relative overflow-hidden">
-      {/* Background Glow */}
-      <div className="absolute top-1/2 left-10 w-[500px] h-[500px] bg-[#A09048]/10 rounded-full blur-[140px] pointer-events-none" />
-
       <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
         <SectionHeader
-          badge="MOBILE VERMIETER-APP"
           title="Mehr erfahren in unserer CVB Vermieter-APP"
-          accentWord="VERMIETER-APP"
-          subtitle="Alle Mietverträge, Übergabeprotokolle, Notfallkontakte und Policen immer griffbereit auf Deinem Smartphone."
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-          {/* Left Column: Editorial Information & CTA Buttons */}
+          {/* Left Column matching Screenshot 4 */}
           <ScrollReveal className="lg:col-span-7 space-y-6">
-            <div className="space-y-4">
-              <p className="text-base sm:text-lg text-[#384808] font-medium leading-relaxed">
-                Wer mehr über den Caravan-Vermieter-Bund erfahren möchte, kann sich die CVB Vermieter-App direkt auf sein Smartphone laden.
+            <div className="space-y-4 text-base sm:text-lg text-[#4A4A28] leading-relaxed">
+              <p>
+                Wer mehr über den Caravan-Vermieter-Bund erfahren möchte kann sich die CVB Vermieter-App auf sein Smartphone laden.
               </p>
-              <p className="text-sm sm:text-base text-[#585828] leading-relaxed">
-                Als CVB-Kunde hat der Vermieter alle Informationen jederzeit griffbereit: Schadensmeldungen online einreichen, eVB-Nummern einsehen, Fahrzeugdaten verwalten und im Pannenfall sofort den richtigen Ansprechpartner kontaktieren.
+              <p>
+                Als CVB Kunde hat der Vermieter alle Informationen, jederzeit, griffbereit.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-              {[
-                'Digitale Schadenmeldung direkt vom Unfallort',
-                'Schneller Zugriff auf Versicherungsscheine & eVB',
-                'Rechtssichere Checklisten für Fahrzeugübergaben',
-                'Direkter Draht zu unseren Schadenexperten',
-              ].map((feature, idx) => (
-                <div
-                  key={idx}
-                  className="flex items-center gap-2.5 p-3 rounded-2xl bg-[#F4F2E6]/75 border border-[#A09048]/25 text-xs sm:text-sm font-semibold text-[#384808]"
-                >
-                  <CheckCircle2 size={16} className="text-[#889028] shrink-0" />
-                  <span>{feature}</span>
-                </div>
-              ))}
-            </div>
-
-            <div className="pt-4 flex flex-wrap items-center gap-4">
+            <div className="pt-2 flex flex-wrap items-center gap-3.5">
               <a
                 href="https://qrco.de/CVB-Vermieter-APP"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="tech-cta-primary"
+                className="px-6 py-2.5 rounded-lg bg-[#EFECE6] hover:bg-[#384808] text-[#384808] hover:text-white font-spartan font-bold text-xs sm:text-sm tracking-wide transition-all shadow-xs"
               >
-                <span>APP Downloaden</span>
-                <span className="tech-ci">
-                  <Download size={16} />
-                </span>
+                APP Downloaden
               </a>
 
               <button
                 onClick={() => scrollTo('faq')}
-                className="tech-cta-ghost"
+                className="px-6 py-2.5 rounded-lg bg-[#EFECE6] hover:bg-[#384808] text-[#384808] hover:text-white font-spartan font-bold text-xs sm:text-sm tracking-wide transition-all shadow-xs cursor-pointer"
               >
-                <span>Fragen?</span>
+                Fragen?
               </button>
             </div>
           </ScrollReveal>
 
-          {/* Right Column: App Card & Store Badges */}
+          {/* Right Column: App Card with Store Badges */}
           <ScrollReveal direction="left" delay={0.15} className="lg:col-span-5">
             <TiltCard3D className="rounded-[32px]">
-              <div className="tech-card-cream p-7 sm:p-9 rounded-[32px] border border-[#A09048]/35 shadow-2xl flex flex-col items-center text-center space-y-6">
+              <div className="bg-[#FFFFFF] p-8 sm:p-10 rounded-[32px] border border-[#A09048]/30 shadow-xl flex flex-col items-center text-center space-y-5">
                 <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-white p-3 border border-[#A09048]/30 shadow-md flex items-center justify-center">
                   <img
                     src="/images/cvb_caravan_vermieter_bund_logo.png"
@@ -92,20 +66,16 @@ export const AppSection = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <span className="inline-block px-3 py-1 rounded-full bg-[#384808] text-white text-[11px] font-spartan font-bold uppercase tracking-wider">
-                    Offizielle App
-                  </span>
                   <h3 className="font-spartan font-black text-2xl sm:text-3xl uppercase text-[#384808]">
-                    CVB – Vermieter APP
+                    CVB - Vermieter APP
                   </h3>
                   <p className="text-xs sm:text-sm text-[#585828] max-w-sm mx-auto leading-relaxed">
-                    Mit der CVB App hast Du Deinen Caravan-Vermieter-Bund direkt in der Hand – alle Tools für Vermieter auf einen Klick.
+                    Mit der CVB App hast Du Deinen Caravan-Vermieter-Bund direkt in der Hand...
                   </p>
                 </div>
 
-                {/* App Store & Google Play Store Badges */}
-                <div className="w-full pt-4 space-y-3 max-w-[280px]">
-                  {/* Apple App Store */}
+                {/* App Store & Google Play Badges */}
+                <div className="w-full pt-2 space-y-3 max-w-[280px]">
                   <a
                     href="https://apps.apple.com"
                     target="_blank"
@@ -125,7 +95,6 @@ export const AppSection = () => {
                     </div>
                   </a>
 
-                  {/* Google Play Store */}
                   <a
                     href="https://play.google.com"
                     target="_blank"
@@ -153,4 +122,3 @@ export const AppSection = () => {
     </section>
   );
 };
-

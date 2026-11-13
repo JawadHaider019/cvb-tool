@@ -34,9 +34,7 @@ export const BesserVermietenSection = () => {
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12 space-y-12 relative z-10">
         <SectionHeader
-          badge="CVB MEHRWERTE // KONZEPT"
           title="Besser Vermieten mit dem CVB"
-          accentWord="MIT DEM CVB"
           subtitle="Mit den Angeboten des Caravan-Vermieter-Bund optimierst Du Deine Wohnmobilvermietung oder startest direkt mit den passenden Lösungen."
         />
 
