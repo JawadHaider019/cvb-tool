@@ -36,7 +36,7 @@ export const Footer = () => {
               </span>
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
                 <a
-                  href="https://apps.apple.com/"
+                  href="https://apps.apple.com/de/app/cvb-vermieter-app/id6745691091"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2.5 py-2 px-3.5 rounded-xl bg-black/70 hover:bg-black text-white transition-all border border-white/15 hover:border-[#A09048]/60 shadow-sm group cursor-pointer"
@@ -55,7 +55,7 @@ export const Footer = () => {
                 </a>
 
                 <a
-                  href="https://play.google.com/"
+                  href="https://play.google.com/store/apps/details?id=de.einfach.cvbvermieterapp.production"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2.5 py-2 px-3.5 rounded-xl bg-black/70 hover:bg-black text-white transition-all border border-white/15 hover:border-[#A09048]/60 shadow-sm group cursor-pointer"

@@ -184,7 +184,7 @@ export const AppSection = () => {
                   {/* App Store & Google Play Badges verbatim */}
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 pt-2 w-full sm:w-auto">
                     <a
-                      href="https://apps.apple.com/"
+                      href="https://apps.apple.com/de/app/cvb-vermieter-app/id6745691091"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center justify-center gap-3 py-2.5 px-5 rounded-2xl bg-[#000000] text-white hover:bg-neutral-800 transition-all border border-white/15 hover:border-[#A09048]/60 shadow-md group cursor-pointer"
@@ -203,7 +203,7 @@ export const AppSection = () => {
                     </a>
 
                     <a
-                      href="https://play.google.com/"
+                      href="https://play.google.com/store/apps/details?id=de.einfach.cvbvermieterapp.production"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center justify-center gap-3 py-2.5 px-5 rounded-2xl bg-[#000000] text-white hover:bg-neutral-800 transition-all border border-white/15 hover:border-[#A09048]/60 shadow-md group cursor-pointer"
