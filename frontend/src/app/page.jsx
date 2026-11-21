@@ -35,7 +35,7 @@ export default function HomePage() {
         {/* 4. Für jeden das passende Paket (Comparison Matrix) matching Screenshot 3 */}
         <ComparisonTableSection />
 
-        {/* 5. Live-Tarifrechner 2027 (Ausgeblendet auf Kundenwunsch) */}
+        {/* 5. Phase 2: Live-Tarifrechner 2027 & Anfrage-Modal */}
         {calcSection?.visible && (
           <CalculatorSection
             section={calcSection}

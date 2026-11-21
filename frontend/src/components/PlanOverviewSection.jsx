@@ -156,7 +156,7 @@ export const PlanOverviewSection = ({
 
                     <div className="pt-6 mt-6 border-t border-[#A09048]/20">
                       <a
-                        href="#kontakt"
+                        href="#rechner"
                         className={`w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-full text-xs font-spartan font-bold uppercase tracking-wider transition-all ${
                           card.isPopular
                             ? 'bg-[#384808] text-white hover:bg-[#2D3A06]'
@@ -219,7 +219,7 @@ export const PlanOverviewSection = ({
 
                     <div className="pt-6 mt-6 border-t border-[#A09048]/20">
                       <a
-                        href="#kontakt"
+                        href="#rechner"
                         className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-full text-xs font-spartan font-bold uppercase tracking-wider transition-all bg-[#F4F2E6] hover:bg-[#384808] text-[#384808] hover:text-white group/btn shadow-xs hover:shadow-md cursor-pointer"
                       >
                         <span>{info.title.replace(' Informationen', '')} anfragen</span>

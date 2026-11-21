@@ -1,10 +1,21 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Mail, Phone, MapPin, ExternalLink, ShieldCheck } from 'lucide-react';
+import { Mail, Phone, MapPin, ExternalLink, ShieldCheck, X } from 'lucide-react';
 
 export const Footer = () => {
+  const [cookieOpen, setCookieOpen] = useState(false);
+
+  useEffect(() => {
+    if (!cookieOpen) return;
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setCookieOpen(false);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [cookieOpen]);
+
   return (
     <footer id="kontakt" className="relative bg-[#172002] text-white border-t border-[#A09048]/35 overflow-hidden">
       {/* Background glow */}
@@ -94,20 +105,20 @@ export const Footer = () => {
                 </a>
               </li>
               <li>
-                <a
-                  href="https://selbstfahrervermietversicherung.online/#faq"
+                <Link
+                  href="/#faq"
                   className="hover:text-[#A09048] transition-colors"
                 >
                   FAQ
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="https://selbstfahrervermietversicherung.online/#besser-vermieten"
+                <Link
+                  href="/#besser-vermieten"
                   className="hover:text-[#A09048] transition-colors"
                 >
                   CVB Mehrwerte
-                </a>
+                </Link>
               </li>
               <li>
                 <a
@@ -137,44 +148,44 @@ export const Footer = () => {
             </h4>
             <ul className="space-y-2.5 text-xs sm:text-sm text-[#F4F2E6]/85">
               <li>
-                <a
-                  href="https://selbstfahrervermietversicherung.online/#versicherungen"
+                <Link
+                  href="/#versicherungen"
                   className="hover:text-[#A09048] transition-colors"
                 >
                   CVB-Plus Tarif
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="https://selbstfahrervermietversicherung.online/#versicherungen"
+                <Link
+                  href="/#versicherungen"
                   className="hover:text-[#A09048] transition-colors"
                 >
                   CVB-Premium Tarif
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="https://selbstfahrervermietversicherung.online/#versicherungen"
+                <Link
+                  href="/#versicherungen"
                   className="hover:text-[#A09048] transition-colors"
                 >
                   CVB-Flex Tarif
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="https://selbstfahrervermietversicherung.online/#versicherungen"
+                <Link
+                  href="/#versicherungen"
                   className="hover:text-[#A09048] transition-colors"
                 >
                   Tarifübersicht & Matrix
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="https://selbstfahrervermietversicherung.online/#besser-vermieten"
+                <Link
+                  href="/#besser-vermieten"
                   className="hover:text-[#A09048] transition-colors"
                 >
                   Versicherungswechsel
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -235,9 +246,8 @@ export const Footer = () => {
 
           <div className="flex items-center gap-6">
             <button
-              onClick={() =>
-                alert('Cookie-Präferenzen: Es werden ausschließlich technisch notwendige Session-Cookies verwendet.')
-              }
+              type="button"
+              onClick={() => setCookieOpen(true)}
               className="text-[#A09048] hover:text-white transition-colors underline underline-offset-4 cursor-pointer"
             >
               Cookie Einstellungen
@@ -249,6 +259,79 @@ export const Footer = () => {
           </div>
         </div>
       </div>
+
+      {cookieOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="cookie-modal-title"
+          onClick={() => setCookieOpen(false)}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#172002]/80 backdrop-blur-sm"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="bg-white text-[#384808] rounded-[24px] max-w-md w-full p-6 sm:p-7 shadow-2xl border border-[#A09048]/35 space-y-4 text-left"
+          >
+            <div className="flex items-center justify-between pb-3 border-b border-[#A09048]/20">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-full bg-[#384808] text-[#A09048] flex items-center justify-center shrink-0">
+                  <ShieldCheck size={16} />
+                </div>
+                <h3
+                  id="cookie-modal-title"
+                  className="font-spartan font-black text-lg text-[#384808]"
+                >
+                  Cookie-Einstellungen
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setCookieOpen(false)}
+                className="p-1.5 rounded-full hover:bg-[#F4F2E6] text-[#585828] hover:text-[#384808] transition-colors cursor-pointer"
+                aria-label="Schließen"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <div className="space-y-3 text-xs sm:text-sm text-[#585828] leading-relaxed">
+              <p>
+                Auf <strong>SelbstfahrerVermietversicherung.online</strong> werden ausschließlich technisch notwendige Cookies verwendet (z. B. für die sichere Formularverarbeitung und den geschützten Admin-Bereich).
+              </p>
+              <div className="p-3.5 rounded-xl bg-[#F4F2E6] border border-[#A09048]/30 flex items-center justify-between gap-3">
+                <div>
+                  <span className="font-bold text-[#384808] block">
+                    Technisch notwendige Cookies
+                  </span>
+                  <span className="text-[11px] text-[#585828]">
+                    Keine Tracking-, Werbe- oder Analyse-Skripte aktiv
+                  </span>
+                </div>
+                <span className="text-[11px] font-spartan font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#384808] text-white shrink-0">
+                  Immer aktiv
+                </span>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between pt-2">
+              <Link
+                href="/datenschutz"
+                onClick={() => setCookieOpen(false)}
+                className="text-xs font-semibold text-[#384808] underline hover:text-[#889028]"
+              >
+                Zur Datenschutzerklärung
+              </Link>
+              <button
+                type="button"
+                onClick={() => setCookieOpen(false)}
+                className="px-5 py-2.5 rounded-full bg-[#384808] hover:bg-[#2D3A06] text-white font-spartan font-bold text-xs uppercase tracking-wider transition-colors cursor-pointer"
+              >
+                Verstanden
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </footer>
   );
 };

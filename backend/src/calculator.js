@@ -8,7 +8,7 @@ export function roundCents(value) {
 }
 
 /**
- * Round UP purchase price to the next full 1,000 € step (e.g. 47,500 -> 48,000).
+ * Round UP purchase price to the next full 1,000 € step (e.g. 72,300 -> 73,000).
  * @param {number} price
  * @returns {number}
  */
@@ -18,7 +18,7 @@ export function roundUpToThousand(price) {
 }
 
 /**
- * Format a numeric Euro amount in German style: 3.082,99 €
+ * Format a numeric Euro amount in German style: 2.207,65 €
  * @param {number} value
  * @returns {string}
  */
@@ -41,8 +41,25 @@ export function formatEuroIntDE(value) {
 }
 
 /**
- * Pure deterministic insurance calculator engine.
- * Every price, rate, threshold, and rule is read from `config` (nothing hard-coded).
+ * Helper to look up a price from sorted tier steps [{ maxV, price }].
+ * Returns null if roundedValue > last step's maxV.
+ */
+function lookupStepPrice(roundedValue, steps) {
+  if (!Array.isArray(steps) || steps.length === 0 || roundedValue <= 0) {
+    return null;
+  }
+  const sorted = [...steps].sort((a, b) => a.maxV - b.maxV);
+  for (const step of sorted) {
+    if (roundedValue <= step.maxV) {
+      return step.price;
+    }
+  }
+  return null;
+}
+
+/**
+ * Pure deterministic insurance calculator engine (2027 Tariffs).
+ * Every price, rate, threshold, deductible, and rule is read from `config` (nothing hard-coded).
  * @param {object} input
  * @param {object} config
  * @returns {object}
@@ -53,39 +70,77 @@ export function calculateInsurancePlans(input, config) {
   const vehicleAge = Math.max(0, currentYear - input.baujahr);
   const isWohnmobil = input.vehicleType === 'wohnmobil';
 
-  // 1. CVB-Plus
   const plusCfg = config.cvbPlus;
-  let plusPrice = null;
-  let plusStatus = 'Preis auf Anfrage';
+  const premCfg = config.cvbPremium;
+  const flexCfg = config.cvbFlex;
 
-  if (isWohnmobil) {
-    if (
-      roundedValue >= plusCfg.wohnmobil.minV &&
-      roundedValue <= plusCfg.wohnmobil.maxV
-    ) {
-      plusPrice =
-        roundedValue >= plusCfg.wohnmobil.thresholdV
-          ? plusCfg.wohnmobil.priceStep2
-          : plusCfg.wohnmobil.priceStep1;
-      plusStatus = null;
-    }
-  } else {
-    if (
-      roundedValue >= plusCfg.wohnwagen.minV &&
-      roundedValue <= plusCfg.wohnwagen.maxV
-    ) {
-      plusPrice = plusCfg.wohnwagen.price;
-      plusStatus = null;
-    }
+  // If Wohnwagen is selected and Wohnwagen prices are not active yet -> all plans "Preis auf Anfrage"
+  if (!isWohnmobil && !config.wohnwagenActive) {
+    const unavailablePlans = [
+      {
+        planId: 'cvb_plus',
+        name: plusCfg.name,
+        available: false,
+        statusText: 'Preis auf Anfrage',
+        price: null,
+        deductibleVK: plusCfg.deductibleVK,
+        deductibleTK: plusCfg.deductibleTK,
+        isRecommended: false,
+        isLiabilityOnly: false,
+        specialNote: null,
+        benefits: plusCfg.benefits,
+      },
+      {
+        planId: 'cvb_premium',
+        name: premCfg.name,
+        available: false,
+        statusText: 'Preis auf Anfrage',
+        price: null,
+        deductibleVK: premCfg.deductibleVK,
+        deductibleTK: premCfg.deductibleTK,
+        isRecommended: false,
+        isLiabilityOnly: false,
+        specialNote: null,
+        benefits: premCfg.benefits,
+      },
+      {
+        planId: 'cvb_flex',
+        name: flexCfg.name,
+        available: false,
+        statusText: 'Preis auf Anfrage',
+        price: null,
+        deductibleVK: flexCfg.wohnwagen?.deductibleVK ?? 1500,
+        deductibleTK: flexCfg.wohnwagen?.deductibleTK ?? 500,
+        isRecommended: false,
+        isLiabilityOnly: false,
+        specialNote: null,
+        benefits: flexCfg.wohnwagen?.benefits ?? [],
+      },
+    ];
+
+    return {
+      roundedValue,
+      vehicleAge,
+      plans: unavailablePlans,
+      allUnavailable: true,
+    };
   }
+
+  const vehicleKey = isWohnmobil ? 'wohnmobil' : 'wohnwagen';
+
+  // 1. CVB-Plus
+  const plusVehicle = plusCfg[vehicleKey];
+  const plusRawPrice = lookupStepPrice(roundedValue, plusVehicle?.steps);
+  const plusPrice = plusRawPrice !== null ? roundCents(plusRawPrice) : null;
 
   const plusResult = {
     planId: 'cvb_plus',
     name: plusCfg.name,
     available: plusPrice !== null,
-    statusText: plusStatus,
-    price: plusPrice !== null ? roundCents(plusPrice) : null,
-    deductible: plusCfg.deductible,
+    statusText: plusPrice !== null ? null : 'Preis auf Anfrage',
+    price: plusPrice,
+    deductibleVK: plusCfg.deductibleVK,
+    deductibleTK: plusCfg.deductibleTK,
     isRecommended: false,
     isLiabilityOnly: false,
     specialNote: null,
@@ -93,37 +148,25 @@ export function calculateInsurancePlans(input, config) {
   };
 
   // 2. CVB-Premium
-  const premCfg = config.cvbPremium;
+  const premVehicle = premCfg[vehicleKey];
   let premPrice = null;
-  let premStatus = 'Preis auf Anfrage';
-
-  if (roundedValue > 0 && roundedValue <= premCfg.maxGrossValue) {
-    if (isWohnmobil) {
-      if (
-        roundedValue >= premCfg.wohnmobil.minV &&
-        roundedValue <= premCfg.wohnmobil.maxV
-      ) {
-        premPrice = premCfg.wohnmobil.price;
-        premStatus = null;
-      }
-    } else {
-      if (
-        roundedValue >= premCfg.wohnwagen.minV &&
-        roundedValue <= premCfg.wohnwagen.maxV
-      ) {
-        premPrice = premCfg.wohnwagen.price;
-        premStatus = null;
-      }
-    }
+  if (
+    roundedValue > 0 &&
+    premVehicle &&
+    roundedValue <= premVehicle.maxV &&
+    premVehicle.price > 0
+  ) {
+    premPrice = roundCents(premVehicle.price);
   }
 
   const premResult = {
     planId: 'cvb_premium',
     name: premCfg.name,
     available: premPrice !== null,
-    statusText: premStatus,
-    price: premPrice !== null ? roundCents(premPrice) : null,
-    deductible: premCfg.deductible,
+    statusText: premPrice !== null ? null : 'Preis auf Anfrage',
+    price: premPrice,
+    deductibleVK: premCfg.deductibleVK,
+    deductibleTK: premCfg.deductibleTK,
     isRecommended: false,
     isLiabilityOnly: false,
     specialNote: null,
@@ -131,47 +174,29 @@ export function calculateInsurancePlans(input, config) {
   };
 
   // 3. CVB-Flex
-  const flexCfg = config.cvbFlex;
-  const flexVehicle = isWohnmobil ? flexCfg.wohnmobil : flexCfg.wohnwagen;
+  const flexVehicle = flexCfg[vehicleKey];
   let flexPrice = null;
-  let flexStatus = null;
+  let flexStatus = 'Preis auf Anfrage';
   let isLiabilityOnly = false;
   let specialNote = null;
 
-  if (roundedValue <= 0 || roundedValue > flexVehicle.maxInsuredValue) {
-    flexPrice = null;
-    flexStatus = 'Preis auf Anfrage';
-  } else if (vehicleAge > flexCfg.maxKaskoAge) {
-    // Age 21+: only liability insurance (Haftpflicht + 20% surcharge), no Schutzbrief, no Kasko, no Veruntreuung
-    isLiabilityOnly = true;
-    specialNote = flexCfg.liabilityOnlyLabel;
-    flexPrice = roundCents(
-      flexVehicle.haftpflicht * (1 + flexVehicle.liabilityOnlySurchargePercent / 100)
-    );
-    flexStatus = null;
-  } else {
-    // Age <= 20: Kasko + Haftpflicht + optional Schutzbrief
-    const kaskoBasis = Math.max(roundedValue, flexVehicle.minVForKasko);
-    const kaskoAmount = (kaskoBasis * flexVehicle.kaskoRatePercent) / 100;
-    const schutzbriefAmount = flexVehicle.hasSchutzbrief
-      ? flexVehicle.schutzbrief
-      : 0;
-    const baseFlex = flexVehicle.haftpflicht + kaskoAmount + schutzbriefAmount;
-
-    if (!input.veruntreuung) {
-      flexPrice = roundCents(baseFlex);
+  if (roundedValue > 0 && flexVehicle) {
+    if (vehicleAge > flexCfg.maxKaskoAge) {
+      // Older than 10 years: only liability ("Nur Haftpflicht") for configured liabilityOnlyPrice
+      isLiabilityOnly = true;
+      specialNote = flexCfg.liabilityOnlyLabel || 'Nur Haftpflicht';
+      flexPrice = roundCents(flexVehicle.liabilityOnlyPrice);
       flexStatus = null;
-    } else {
-      if (roundedValue <= flexVehicle.veruntreuungStep1MaxV) {
-        flexPrice = roundCents(baseFlex + flexVehicle.veruntreuungStep1Surcharge);
-        flexStatus = null;
-      } else if (roundedValue <= flexVehicle.veruntreuungStep2MaxV) {
-        flexPrice = roundCents(baseFlex + flexVehicle.veruntreuungStep2Surcharge);
-        flexStatus = null;
-      } else {
-        flexPrice = null;
-        flexStatus = flexVehicle.aboveVeruntreuungStatus;
-      }
+    } else if (roundedValue <= flexVehicle.maxV) {
+      // Formula: (baseFixed + max(V, minV) * perThousandRate / 1000 * factor1) * factor2
+      const effectiveV = Math.max(roundedValue, flexVehicle.minV);
+      const rawFlex =
+        (flexVehicle.baseFixed +
+          ((effectiveV * flexVehicle.perThousandRate) / 1000) *
+            flexVehicle.factor1) *
+        flexVehicle.factor2;
+      flexPrice = roundCents(rawFlex);
+      flexStatus = null;
     }
   }
 
@@ -181,29 +206,34 @@ export function calculateInsurancePlans(input, config) {
     available: flexPrice !== null,
     statusText: flexStatus,
     price: flexPrice,
-    deductible: flexCfg.deductible,
+    deductibleVK: flexVehicle?.deductibleVK ?? flexCfg.deductibleVK,
+    deductibleTK: flexVehicle?.deductibleTK ?? flexCfg.deductibleTK,
     isRecommended: false,
     isLiabilityOnly,
     specialNote,
-    benefits: flexCfg.benefits,
+    benefits: flexVehicle?.benefits ?? flexCfg.benefits,
   };
 
   const plans = [plusResult, premResult, flexResult];
 
-  // Dynamically mark the cheapest available priced plan as "Empfehlung"
-  const pricedPlans = plans.filter((p) => p.available && p.price !== null);
-  if (pricedPlans.length > 0) {
-    const cheapest = pricedPlans.reduce((min, curr) =>
+  // Dynamically mark the cheapest available priced plan as "Empfehlung".
+  // Exception: Flex "Nur Haftpflicht" (vehicle older than maxKaskoAge) does NOT get the badge.
+  const recommendablePlans = plans.filter(
+    (p) => p.available && p.price !== null && !p.isLiabilityOnly
+  );
+  if (recommendablePlans.length > 0) {
+    const cheapest = recommendablePlans.reduce((min, curr) =>
       curr.price < min.price ? curr : min
     );
     cheapest.isRecommended = true;
   }
 
+  const anyAvailable = plans.some((p) => p.available && p.price !== null);
+
   return {
     roundedValue,
     vehicleAge,
     plans,
-    allUnavailable: pricedPlans.length === 0,
+    allUnavailable: !anyAvailable,
   };
 }
-

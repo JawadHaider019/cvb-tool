@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-import { formatEuroDE, formatEuroIntDE } from '@/lib/calculator.js';
+import { formatEuroDE, formatEuroIntDE } from './calculator.js';
 
 function createTransporter() {
   const host = process.env.SMTP_HOST;
@@ -39,10 +39,10 @@ export async function sendInsuranceEmails(request, settings) {
     `Tarif: ${request.chosenPlan}`,
     `Berechneter Preis: ${priceDisplay}`,
     `Fahrzeugart: ${vehicleLabel}`,
-    `Kaufpreis neu, brutto: ${formatEuroIntDE(request.kaufpreis)}`,
+    `Kaufpreis: ${formatEuroIntDE(request.kaufpreis)}`,
     `Gerundeter Fahrzeugwert (V): ${formatEuroIntDE(request.roundedValue)}`,
     `Baujahr: ${request.baujahr} (Fahrzeugalter: ${request.vehicleAge} Jahre)`,
-    `Veruntreuungsschutz: ${request.veruntreuung ? 'Ja' : 'Nein'}`,
+    `Fest eingebautes Sonderzubehör: ${request.sonderzubehoer || '-'}`,
     ``,
     `--- Kontaktdaten des Interessenten ---`,
     `Name: ${request.name}`,
@@ -65,9 +65,9 @@ export async function sendInsuranceEmails(request, settings) {
     ``,
     `Tarif: ${request.chosenPlan}`,
     `Fahrzeugart: ${vehicleLabel}`,
-    `Kaufpreis (brutto): ${formatEuroIntDE(request.kaufpreis)}`,
+    `Kaufpreis: ${formatEuroIntDE(request.kaufpreis)}`,
     `Baujahr: ${request.baujahr}`,
-    `Veruntreuungsschutz: ${request.veruntreuung ? 'Ja' : 'Nein'}`,
+    `Fest eingebautes Sonderzubehör: ${request.sonderzubehoer || '-'}`,
     `Kalkulierter Jahresbeitrag: ${priceDisplay}`,
     ``,
     `Bei Rückfragen erreichen Sie uns jederzeit unter ${settings.contactEmail} oder ${settings.contactPhone}.`,

@@ -28,7 +28,6 @@ export const CalculatorSection = ({
   const [baujahrInput, setBaujahrInput] = useState(
     String(currentYear - 2)
   );
-  const [veruntreuung, setVeruntreuung] = useState(true);
 
   const [modalOpen, setModalOpen] = useState(false);
   const [modalData, setModalData] = useState(null);
@@ -57,7 +56,6 @@ export const CalculatorSection = ({
         vehicleType,
         kaufpreis: parsedPrice,
         baujahr: parsedBaujahr,
-        veruntreuung,
         currentYear,
       },
       config
@@ -67,7 +65,6 @@ export const CalculatorSection = ({
     vehicleType,
     parsedPrice,
     parsedBaujahr,
-    veruntreuung,
     currentYear,
     config,
   ]);
@@ -95,7 +92,6 @@ export const CalculatorSection = ({
       roundedValue: calculation.roundedValue,
       baujahr: parsedBaujahr ?? currentYear,
       vehicleAge: calculation.vehicleAge,
-      veruntreuung,
       calculatedPrice: plan ? plan.price : null,
       priceStatusText: plan ? plan.statusText : 'Individuelles Angebot',
     });
@@ -109,15 +105,18 @@ export const CalculatorSection = ({
     >
       <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-12 space-y-10">
         <SectionHeader
-          badge="LIVE-TARIFRECHNER 2027"
+          badge={section?.badge || 'LIVE-TARIFRECHNER 2027'}
           title="Ihren passenden CVB-Tarif"
           accentWord="sofort berechnen"
-          subtitle="Wählen Sie Fahrzeugart, Kaufpreis, Baujahr und Veruntreuungsschutz. Vergleichen Sie sofort alle verfügbaren CVB-Tarife in Echtzeit."
+          subtitle={
+            section?.subtitle ||
+            'Wählen Sie Fahrzeugart, Kaufpreis und Baujahr. Sie sehen sofort alle verfügbaren Tarife im direkten Vergleich.'
+          }
         />
 
-        {/* 4 Calculator Inputs Card */}
+        {/* 3 Calculator Inputs Card */}
         <div className="bg-white rounded-[28px] border border-[#A09048]/35 shadow-[0_18px_45px_-18px_rgba(56,72,8,0.14)] p-5 sm:p-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* 1. Fahrzeugart */}
             <div className="space-y-2">
               <label className="block font-spartan font-extrabold text-sm uppercase tracking-wider text-[#384808]">
@@ -151,13 +150,13 @@ export const CalculatorSection = ({
               </div>
             </div>
 
-            {/* 2. Kaufpreis neu, brutto (Plain input field - NO slider) */}
+            {/* 2. Kaufpreis (Plain input field - NO slider, NO net/gross conversion) */}
             <div className="space-y-2">
               <label
                 htmlFor="kaufpreis-input"
                 className="block font-spartan font-extrabold text-sm uppercase tracking-wider text-[#384808]"
               >
-                2. Kaufpreis neu, brutto (€)
+                2. Kaufpreis (€)
               </label>
               <div className="relative">
                 <input
@@ -185,6 +184,10 @@ export const CalculatorSection = ({
                   Bitte geben Sie einen gültigen Kaufpreis in Euro ein.
                 </p>
               )}
+              <p className="text-[11px] text-[#585828] leading-snug">
+                {config.priceHintText ||
+                  'Listenneupreis laut Hersteller, ohne Rabatte, inkl. fest eingebautem Sonderzubehör. Vorsteuerabzugsberechtigte Vermieter geben den Nettopreis an, Kleinunternehmer den Bruttopreis.'}
+              </p>
             </div>
 
             {/* 3. Baujahr */}
@@ -216,40 +219,6 @@ export const CalculatorSection = ({
                   </strong>
                 </p>
               )}
-            </div>
-
-            {/* 4. Veruntreuungsschutz */}
-            <div className="space-y-2">
-              <label className="block font-spartan font-extrabold text-sm uppercase tracking-wider text-[#384808]">
-                4. Veruntreuungsschutz
-              </label>
-              <div className="grid grid-cols-2 gap-2.5">
-                <button
-                  type="button"
-                  onClick={() => setVeruntreuung(true)}
-                  className={`py-3 px-3 rounded-2xl border-2 font-spartan font-bold text-sm transition-all cursor-pointer ${
-                    veruntreuung
-                      ? 'bg-[#384808] border-[#384808] text-white shadow-md'
-                      : 'bg-[#F4F2E6]/60 border-[#A09048]/30 text-[#384808] hover:border-[#384808]'
-                  }`}
-                >
-                  Ja (mit Schutz)
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setVeruntreuung(false)}
-                  className={`py-3 px-3 rounded-2xl border-2 font-spartan font-bold text-sm transition-all cursor-pointer ${
-                    !veruntreuung
-                      ? 'bg-[#384808] border-[#384808] text-white shadow-md'
-                      : 'bg-[#F4F2E6]/60 border-[#A09048]/30 text-[#384808] hover:border-[#384808]'
-                  }`}
-                >
-                  Nein (ohne)
-                </button>
-              </div>
-              <p className="text-[11px] text-[#585828]">
-                Bei Plus &amp; Premium bereits enthalten.
-              </p>
             </div>
           </div>
         </div>
@@ -324,8 +293,8 @@ export const CalculatorSection = ({
                             {plan.name}
                           </h3>
                           <p className="text-xs font-semibold text-[#889028] mt-0.5">
-                            Selbstbeteiligung:{' '}
-                            {formatEuroIntDE(plan.deductible)}
+                            SB VK {formatEuroIntDE(plan.deductibleVK)} / TK{' '}
+                            {formatEuroIntDE(plan.deductibleTK)}
                           </p>
                         </div>
                       </div>
@@ -347,8 +316,8 @@ export const CalculatorSection = ({
                               {plan.statusText || 'Preis auf Anfrage'}
                             </div>
                             <p className="text-xs text-stone-500 mt-1">
-                              {plan.statusText === 'k. A.'
-                                ? 'In dieser Kombination nicht verfügbar — wir beraten Sie gerne alternativ.'
+                              {vehicleType === 'wohnwagen' && !config.wohnwagenActive
+                                ? 'Für Wohnwagen erstellen wir Ihnen gerne ein individuelles Angebot.'
                                 : 'Außerhalb der Standardtabelle — individuelles Angebot auf Anfrage.'}
                             </p>
                           </div>
@@ -357,7 +326,10 @@ export const CalculatorSection = ({
                         {plan.specialNote && (
                           <div className="mt-3 flex items-start gap-2 rounded-xl bg-[#F4F2E6] border border-[#A09048]/40 p-2.5 text-xs font-semibold text-[#384808]">
                             <Info size={15} className="text-[#A09048] shrink-0 mt-0.5" />
-                            <span>{plan.specialNote}</span>
+                            <span>
+                              {plan.specialNote} (Fahrzeugalter &gt;{' '}
+                              {config.cvbFlex.maxKaskoAge} Jahre — keine Kasko)
+                            </span>
                           </div>
                         )}
                       </div>

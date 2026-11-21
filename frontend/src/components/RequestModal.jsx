@@ -14,6 +14,7 @@ export const RequestModal = ({
   const [firma, setFirma] = useState('');
   const [email, setEmail] = useState('');
   const [telefon, setTelefon] = useState('');
+  const [sonderzubehoer, setSonderzubehoer] = useState('');
   const [nachricht, setNachricht] = useState('');
   const [privacyConsent, setPrivacyConsent] = useState(false);
   const [honeypot, setHoneypot] = useState('');
@@ -30,6 +31,15 @@ export const RequestModal = ({
       setSuccessMsg(null);
     }
   }, [isOpen, data?.chosenPlanId]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
 
   if (!isOpen || !data) return null;
 
@@ -62,6 +72,7 @@ export const RequestModal = ({
           firma,
           email,
           telefon,
+          sonderzubehoer,
           nachricht,
           privacyConsent,
           ...data,
@@ -79,6 +90,7 @@ export const RequestModal = ({
         setFirma('');
         setEmail('');
         setTelefon('');
+        setSonderzubehoer('');
         setNachricht('');
         setPrivacyConsent(false);
       }
@@ -94,9 +106,13 @@ export const RequestModal = ({
       role="dialog"
       aria-modal="true"
       aria-labelledby="request-modal-title"
+      onClick={onClose}
       className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-[#242E05]/80 backdrop-blur-md"
     >
-      <div className="bg-white rounded-[24px] sm:rounded-[28px] max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-[#A09048]/35">
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="bg-white rounded-[24px] sm:rounded-[28px] max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-[#A09048]/35"
+      >
         {/* Modal Header */}
         <div className="sticky top-0 bg-white/95 backdrop-blur-sm px-5 sm:px-7 py-4 border-b border-[#A09048]/20 flex items-center justify-between z-10">
           <div className="flex items-center gap-2.5">
@@ -145,7 +161,7 @@ export const RequestModal = ({
               </div>
               <div>
                 <span className="block text-[11px] text-[#585828]">
-                  Kaufpreis (brutto)
+                  Kaufpreis
                 </span>
                 <strong className="text-[#384808]">
                   {formatEuroIntDE(data.kaufpreis)}
@@ -156,14 +172,6 @@ export const RequestModal = ({
                   Baujahr
                 </span>
                 <strong className="text-[#384808]">{data.baujahr}</strong>
-              </div>
-              <div>
-                <span className="block text-[11px] text-[#585828]">
-                  Veruntreuungsschutz
-                </span>
-                <strong className="text-[#384808]">
-                  {data.veruntreuung ? 'Ja' : 'Nein'}
-                </strong>
               </div>
               <div>
                 <span className="block text-[11px] text-[#585828]">
@@ -267,6 +275,19 @@ export const RequestModal = ({
                     className="w-full rounded-xl border border-[#A09048]/40 px-3.5 py-2.5 text-sm text-[#384808] focus:outline-none focus:border-[#384808]"
                   />
                 </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-[#384808] mb-1">
+                  Fest eingebautes Sonderzubehör (bitte auflisten)
+                </label>
+                <textarea
+                  rows={2}
+                  value={sonderzubehoer}
+                  onChange={(e) => setSonderzubehoer(e.target.value)}
+                  placeholder="z. B. Markise, Solaranlage, Hubstützen, Fahrradträger (optional)"
+                  className="w-full rounded-xl border border-[#A09048]/40 px-3.5 py-2.5 text-sm text-[#384808] focus:outline-none focus:border-[#384808]"
+                />
               </div>
 
               <div>

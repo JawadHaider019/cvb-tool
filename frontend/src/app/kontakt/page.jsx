@@ -14,21 +14,41 @@ export default function KontaktPage() {
     message: '',
     agreed: false,
   });
+  const [honeypot, setHoneypot] = useState('');
+  const [formOpenedAt] = useState(() => Date.now());
+  const [errorMsg, setErrorMsg] = useState(null);
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMsg(null);
     setSubmitting(true);
     try {
-      await fetch('/api/contact', {
+      const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          honeypot,
+          formOpenedAt,
+          name: formData.name,
+          email: formData.email,
+          telefon: formData.phone,
+          nachricht: formData.message,
+          privacyConsent: formData.agreed,
+        }),
       });
-      setSubmitted(true);
+      const json = await res.json();
+      if (!res.ok || !json.success) {
+        setErrorMsg(
+          json.error ||
+            'Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.'
+        );
+      } else {
+        setSubmitted(true);
+      }
     } catch {
-      setSubmitted(true);
+      setErrorMsg('Netzwerkfehler. Bitte versuchen Sie es erneut.');
     } finally {
       setSubmitting(false);
     }
@@ -138,6 +158,15 @@ export default function KontaktPage() {
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-4">
+                    <div className="hidden" aria-hidden="true">
+                      <input
+                        type="text"
+                        tabIndex={-1}
+                        autoComplete="off"
+                        value={honeypot}
+                        onChange={(e) => setHoneypot(e.target.value)}
+                      />
+                    </div>
                     <h3 className="font-spartan font-black text-xl sm:text-2xl uppercase text-[#172002] pb-2 border-b border-[#A09048]/20">
                       Direkte Nachricht senden
                     </h3>
@@ -216,6 +245,12 @@ export default function KontaktPage() {
                         </span>
                       </label>
                     </div>
+
+                    {errorMsg && (
+                      <div className="rounded-xl bg-red-50 border border-red-200 px-3.5 py-2.5 text-xs text-red-700">
+                        {errorMsg}
+                      </div>
+                    )}
 
                     <button
                       type="submit"

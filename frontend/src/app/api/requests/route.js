@@ -23,6 +23,7 @@ export async function POST(req) {
     firma,
     email,
     telefon,
+    sonderzubehoer,
     nachricht,
     privacyConsent,
     chosenPlan,
@@ -32,7 +33,6 @@ export async function POST(req) {
     roundedValue,
     baujahr,
     vehicleAge,
-    veruntreuung,
     calculatedPrice,
     priceStatusText,
   } = body;
@@ -111,6 +111,7 @@ export async function POST(req) {
     firma: (firma || '').trim(),
     email: trimmedEmail,
     telefon: (telefon || '').trim(),
+    sonderzubehoer: (sonderzubehoer || '').trim(),
     nachricht: (nachricht || '').trim(),
     privacyConsent: true,
     privacyConsentAt: nowStr,
@@ -121,7 +122,6 @@ export async function POST(req) {
     roundedValue: Number(roundedValue) || 0,
     baujahr: Number(baujahr) || new Date().getFullYear(),
     vehicleAge: Number(vehicleAge) || 0,
-    veruntreuung: Boolean(veruntreuung),
     calculatedPrice:
       calculatedPrice !== null && calculatedPrice !== undefined
         ? Number(calculatedPrice)

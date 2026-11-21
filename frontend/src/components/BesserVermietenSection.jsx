@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import {
   ShieldCheck,
   CheckCircle2,
@@ -253,13 +254,13 @@ export const BesserVermietenSection = () => {
                   <p className="text-xs sm:text-sm text-[#F4F2E6]/85 leading-relaxed">
                     Damit Dein Geschäftsmodell ein voller Erfolg wird. Mit unserer Erfahrung und die der, mehreren hundert angeschlossenen Vermietern, erhältst Du das KnowHow was Dich vom Wettbewerb, unterscheiden wird.
                   </p>
-                  <button
-                    onClick={() => scrollTo('kontakt')}
+                  <Link
+                    href="/kontakt"
                     className="w-full py-3.5 px-5 rounded-full bg-[#A09048] hover:bg-[#889028] text-[#172002] hover:text-white font-spartan font-bold text-xs uppercase tracking-wider transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 cursor-pointer mt-2 group/cta"
                   >
                     <PhoneCall size={14} className="group-hover/cta:scale-110 transition-transform" />
                     <span>Nimm Kontakt mit uns auf.</span>
-                  </button>
+                  </Link>
                 </div>
               </div>
             </TiltCard3D>
@@ -406,13 +407,13 @@ export const BesserVermietenSection = () => {
                   </div>
 
                   <div className="pt-6 border-t border-[#A09048]/15 mt-6">
-                    <button
-                      onClick={() => scrollTo('kontakt')}
+                    <Link
+                      href="/kontakt"
                       className="inline-flex items-center gap-2 text-xs font-spartan font-bold uppercase tracking-wider text-[#384808] hover:text-[#889028] transition-colors group/btn cursor-pointer"
                     >
                       <span>Kontakt aufnehmen</span>
                       <ArrowRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </TiltCard3D>

@@ -556,11 +556,10 @@ export const AdminPanel = ({ initialAuthenticated }) => {
                             </div>
                             <div>
                               <span className="block text-[10px] text-[#585828]">
-                                Baujahr / Veruntreuung
+                                Baujahr / Fahrzeugalter
                               </span>
                               <strong className="text-[#384808]">
-                                {req.baujahr} /{' '}
-                                {req.veruntreuung ? 'Ja' : 'Nein'}
+                                {req.baujahr} ({req.vehicleAge} J.)
                               </strong>
                             </div>
                             <div>
@@ -574,6 +573,13 @@ export const AdminPanel = ({ initialAuthenticated }) => {
                               </strong>
                             </div>
                           </div>
+
+                          {req.sonderzubehoer && (
+                            <p className="text-xs text-[#585828] bg-white rounded-xl p-2.5 border border-[#A09048]/15">
+                              <strong>Fest eingebautes Sonderzubehör:</strong>{' '}
+                              {req.sonderzubehoer}
+                            </p>
+                          )}
 
                           {req.nachricht && (
                             <p className="text-xs text-[#585828] bg-white rounded-xl p-2.5 border border-[#A09048]/15">
@@ -842,6 +848,63 @@ export const AdminPanel = ({ initialAuthenticated }) => {
                     </button>
                   </div>
 
+                  {/* Global Calculator & Wohnwagen Toggle */}
+                  <div className="rounded-2xl border border-[#A09048]/30 bg-[#F4F2E6]/40 p-5 space-y-4">
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                      <h3 className="font-spartan font-black text-lg text-[#384808]">
+                        Allgemeine Rechner-Einstellungen
+                      </h3>
+                      <label className="inline-flex items-center gap-2.5 cursor-pointer bg-white px-4 py-2 rounded-xl border border-[#A09048]/35 text-xs font-bold text-[#384808]">
+                        <input
+                          type="checkbox"
+                          checked={Boolean(insuranceConfig.wohnwagenActive)}
+                          onChange={(e) =>
+                            setInsuranceConfig({
+                              ...insuranceConfig,
+                              wohnwagenActive: e.target.checked,
+                            })
+                          }
+                          className="h-4 w-4 accent-[#384808]"
+                        />
+                        <span>Wohnwagen-Preise aktiv</span>
+                      </label>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                      <label className="space-y-1">
+                        <span className="font-bold text-[#384808]">
+                          Hinweistext unter Kaufpreis-Feld
+                        </span>
+                        <textarea
+                          rows={2}
+                          value={insuranceConfig.priceHintText || ''}
+                          onChange={(e) =>
+                            setInsuranceConfig({
+                              ...insuranceConfig,
+                              priceHintText: e.target.value,
+                            })
+                          }
+                          className="w-full rounded-xl border bg-white p-2.5 text-xs"
+                        />
+                      </label>
+                      <label className="space-y-1">
+                        <span className="font-bold text-[#384808]">
+                          Fußzeile unter den Tarifen
+                        </span>
+                        <textarea
+                          rows={2}
+                          value={insuranceConfig.priceFootnote || ''}
+                          onChange={(e) =>
+                            setInsuranceConfig({
+                              ...insuranceConfig,
+                              priceFootnote: e.target.value,
+                            })
+                          }
+                          className="w-full rounded-xl border bg-white p-2.5 text-xs"
+                        />
+                      </label>
+                    </div>
+                  </div>
+
                   {/* CVB-Plus */}
                   <div className="rounded-2xl border border-[#A09048]/30 bg-[#F4F2E6]/40 p-5 space-y-4">
                     <h3 className="font-spartan font-black text-lg text-[#384808]">
@@ -850,17 +913,17 @@ export const AdminPanel = ({ initialAuthenticated }) => {
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
                       <label className="space-y-1">
                         <span className="font-bold text-[#384808]">
-                          Selbstbeteiligung (€)
+                          SB Vollkasko (€)
                         </span>
                         <input
                           type="number"
-                          value={insuranceConfig.cvbPlus.deductible}
+                          value={insuranceConfig.cvbPlus.deductibleVK}
                           onChange={(e) =>
                             setInsuranceConfig({
                               ...insuranceConfig,
                               cvbPlus: {
                                 ...insuranceConfig.cvbPlus,
-                                deductible: Number(e.target.value),
+                                deductibleVK: Number(e.target.value),
                               },
                             })
                           }
@@ -869,159 +932,17 @@ export const AdminPanel = ({ initialAuthenticated }) => {
                       </label>
                       <label className="space-y-1">
                         <span className="font-bold text-[#384808]">
-                          Womo Preis Stufe 1 (€)
+                          SB Teilkasko (€)
                         </span>
                         <input
                           type="number"
-                          step="0.01"
-                          value={insuranceConfig.cvbPlus.wohnmobil.priceStep1}
+                          value={insuranceConfig.cvbPlus.deductibleTK}
                           onChange={(e) =>
                             setInsuranceConfig({
                               ...insuranceConfig,
                               cvbPlus: {
                                 ...insuranceConfig.cvbPlus,
-                                wohnmobil: {
-                                  ...insuranceConfig.cvbPlus.wohnmobil,
-                                  priceStep1: Number(e.target.value),
-                                },
-                              },
-                            })
-                          }
-                          className="w-full rounded-xl border bg-white px-3 py-2"
-                        />
-                      </label>
-                      <label className="space-y-1">
-                        <span className="font-bold text-[#384808]">
-                          Womo Schwelle V (€)
-                        </span>
-                        <input
-                          type="number"
-                          step="1000"
-                          value={insuranceConfig.cvbPlus.wohnmobil.thresholdV}
-                          onChange={(e) =>
-                            setInsuranceConfig({
-                              ...insuranceConfig,
-                              cvbPlus: {
-                                ...insuranceConfig.cvbPlus,
-                                wohnmobil: {
-                                  ...insuranceConfig.cvbPlus.wohnmobil,
-                                  thresholdV: Number(e.target.value),
-                                },
-                              },
-                            })
-                          }
-                          className="w-full rounded-xl border bg-white px-3 py-2"
-                        />
-                      </label>
-                      <label className="space-y-1">
-                        <span className="font-bold text-[#384808]">
-                          Womo Preis Stufe 2 (€)
-                        </span>
-                        <input
-                          type="number"
-                          step="0.01"
-                          value={insuranceConfig.cvbPlus.wohnmobil.priceStep2}
-                          onChange={(e) =>
-                            setInsuranceConfig({
-                              ...insuranceConfig,
-                              cvbPlus: {
-                                ...insuranceConfig.cvbPlus,
-                                wohnmobil: {
-                                  ...insuranceConfig.cvbPlus.wohnmobil,
-                                  priceStep2: Number(e.target.value),
-                                },
-                              },
-                            })
-                          }
-                          className="w-full rounded-xl border bg-white px-3 py-2"
-                        />
-                      </label>
-                      <label className="space-y-1">
-                        <span className="font-bold text-[#384808]">
-                          Womo Min V (€)
-                        </span>
-                        <input
-                          type="number"
-                          step="1000"
-                          value={insuranceConfig.cvbPlus.wohnmobil.minV}
-                          onChange={(e) =>
-                            setInsuranceConfig({
-                              ...insuranceConfig,
-                              cvbPlus: {
-                                ...insuranceConfig.cvbPlus,
-                                wohnmobil: {
-                                  ...insuranceConfig.cvbPlus.wohnmobil,
-                                  minV: Number(e.target.value),
-                                },
-                              },
-                            })
-                          }
-                          className="w-full rounded-xl border bg-white px-3 py-2"
-                        />
-                      </label>
-                      <label className="space-y-1">
-                        <span className="font-bold text-[#384808]">
-                          Womo Max V (€)
-                        </span>
-                        <input
-                          type="number"
-                          step="1000"
-                          value={insuranceConfig.cvbPlus.wohnmobil.maxV}
-                          onChange={(e) =>
-                            setInsuranceConfig({
-                              ...insuranceConfig,
-                              cvbPlus: {
-                                ...insuranceConfig.cvbPlus,
-                                wohnmobil: {
-                                  ...insuranceConfig.cvbPlus.wohnmobil,
-                                  maxV: Number(e.target.value),
-                                },
-                              },
-                            })
-                          }
-                          className="w-full rounded-xl border bg-white px-3 py-2"
-                        />
-                      </label>
-                      <label className="space-y-1">
-                        <span className="font-bold text-[#384808]">
-                          Wohnwagen Preis (€)
-                        </span>
-                        <input
-                          type="number"
-                          step="0.01"
-                          value={insuranceConfig.cvbPlus.wohnwagen.price}
-                          onChange={(e) =>
-                            setInsuranceConfig({
-                              ...insuranceConfig,
-                              cvbPlus: {
-                                ...insuranceConfig.cvbPlus,
-                                wohnwagen: {
-                                  ...insuranceConfig.cvbPlus.wohnwagen,
-                                  price: Number(e.target.value),
-                                },
-                              },
-                            })
-                          }
-                          className="w-full rounded-xl border bg-white px-3 py-2"
-                        />
-                      </label>
-                      <label className="space-y-1">
-                        <span className="font-bold text-[#384808]">
-                          Wohnwagen Max V (€)
-                        </span>
-                        <input
-                          type="number"
-                          step="1000"
-                          value={insuranceConfig.cvbPlus.wohnwagen.maxV}
-                          onChange={(e) =>
-                            setInsuranceConfig({
-                              ...insuranceConfig,
-                              cvbPlus: {
-                                ...insuranceConfig.cvbPlus,
-                                wohnwagen: {
-                                  ...insuranceConfig.cvbPlus.wohnwagen,
-                                  maxV: Number(e.target.value),
-                                },
+                                deductibleTK: Number(e.target.value),
                               },
                             })
                           }
@@ -1029,6 +950,149 @@ export const AdminPanel = ({ initialAuthenticated }) => {
                         />
                       </label>
                     </div>
+
+                    <div className="pt-2 border-t border-[#A09048]/20">
+                      <p className="text-xs font-black text-[#384808] mb-2">
+                        Wohnmobil Preisstufen (bis Wert V € / Jahrespreis €)
+                      </p>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                        {insuranceConfig.cvbPlus.wohnmobil.steps.map((step, idx) => (
+                          <div
+                            key={idx}
+                            className="p-3 rounded-xl bg-white border border-[#A09048]/25 grid grid-cols-2 gap-2"
+                          >
+                            <label className="space-y-1">
+                              <span>Stufe {idx + 1} bis V (€)</span>
+                              <input
+                                type="number"
+                                step="1000"
+                                value={step.maxV}
+                                onChange={(e) => {
+                                  const nextSteps =
+                                    insuranceConfig.cvbPlus.wohnmobil.steps.map(
+                                      (s, i) =>
+                                        i === idx
+                                          ? { ...s, maxV: Number(e.target.value) }
+                                          : s
+                                    );
+                                  setInsuranceConfig({
+                                    ...insuranceConfig,
+                                    cvbPlus: {
+                                      ...insuranceConfig.cvbPlus,
+                                      wohnmobil: {
+                                        ...insuranceConfig.cvbPlus.wohnmobil,
+                                        steps: nextSteps,
+                                      },
+                                    },
+                                  });
+                                }}
+                                className="w-full rounded-lg border px-2.5 py-1.5"
+                              />
+                            </label>
+                            <label className="space-y-1">
+                              <span>Preis (€)</span>
+                              <input
+                                type="number"
+                                step="0.01"
+                                value={step.price}
+                                onChange={(e) => {
+                                  const nextSteps =
+                                    insuranceConfig.cvbPlus.wohnmobil.steps.map(
+                                      (s, i) =>
+                                        i === idx
+                                          ? { ...s, price: Number(e.target.value) }
+                                          : s
+                                    );
+                                  setInsuranceConfig({
+                                    ...insuranceConfig,
+                                    cvbPlus: {
+                                      ...insuranceConfig.cvbPlus,
+                                      wohnmobil: {
+                                        ...insuranceConfig.cvbPlus.wohnmobil,
+                                        steps: nextSteps,
+                                      },
+                                    },
+                                  });
+                                }}
+                                className="w-full rounded-lg border px-2.5 py-1.5"
+                              />
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="pt-2 border-t border-[#A09048]/20">
+                      <p className="text-xs font-black text-[#384808] mb-2">
+                        Wohnwagen Preisstufen (wenn aktiv)
+                      </p>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                        {insuranceConfig.cvbPlus.wohnwagen.steps.map((step, idx) => (
+                          <div
+                            key={idx}
+                            className="p-3 rounded-xl bg-white border border-[#A09048]/25 grid grid-cols-2 gap-2"
+                          >
+                            <label className="space-y-1">
+                              <span>Stufe {idx + 1} bis V (€)</span>
+                              <input
+                                type="number"
+                                step="1000"
+                                value={step.maxV}
+                                onChange={(e) => {
+                                  const nextSteps =
+                                    insuranceConfig.cvbPlus.wohnwagen.steps.map(
+                                      (s, i) =>
+                                        i === idx
+                                          ? { ...s, maxV: Number(e.target.value) }
+                                          : s
+                                    );
+                                  setInsuranceConfig({
+                                    ...insuranceConfig,
+                                    cvbPlus: {
+                                      ...insuranceConfig.cvbPlus,
+                                      wohnwagen: {
+                                        ...insuranceConfig.cvbPlus.wohnwagen,
+                                        steps: nextSteps,
+                                      },
+                                    },
+                                  });
+                                }}
+                                className="w-full rounded-lg border px-2.5 py-1.5"
+                              />
+                            </label>
+                            <label className="space-y-1">
+                              <span>Preis (€)</span>
+                              <input
+                                type="number"
+                                step="0.01"
+                                value={step.price}
+                                onChange={(e) => {
+                                  const nextSteps =
+                                    insuranceConfig.cvbPlus.wohnwagen.steps.map(
+                                      (s, i) =>
+                                        i === idx
+                                          ? { ...s, price: Number(e.target.value) }
+                                          : s
+                                    );
+                                  setInsuranceConfig({
+                                    ...insuranceConfig,
+                                    cvbPlus: {
+                                      ...insuranceConfig.cvbPlus,
+                                      wohnwagen: {
+                                        ...insuranceConfig.cvbPlus.wohnwagen,
+                                        steps: nextSteps,
+                                      },
+                                    },
+                                  });
+                                }}
+                                className="w-full rounded-lg border px-2.5 py-1.5"
+                              />
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
                     <div>
                       <span className="block text-xs font-bold text-[#384808] mb-1">
                         Leistungs-Stichpunkte (eine Zeile pro Punkt)
@@ -1057,20 +1121,62 @@ export const AdminPanel = ({ initialAuthenticated }) => {
                     <h3 className="font-spartan font-black text-lg text-[#384808]">
                       CVB-Premium
                     </h3>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
                       <label className="space-y-1">
                         <span className="font-bold text-[#384808]">
-                          Selbstbeteiligung (€)
+                          SB Vollkasko (€)
                         </span>
                         <input
                           type="number"
-                          value={insuranceConfig.cvbPremium.deductible}
+                          value={insuranceConfig.cvbPremium.deductibleVK}
                           onChange={(e) =>
                             setInsuranceConfig({
                               ...insuranceConfig,
                               cvbPremium: {
                                 ...insuranceConfig.cvbPremium,
-                                deductible: Number(e.target.value),
+                                deductibleVK: Number(e.target.value),
+                              },
+                            })
+                          }
+                          className="w-full rounded-xl border bg-white px-3 py-2"
+                        />
+                      </label>
+                      <label className="space-y-1">
+                        <span className="font-bold text-[#384808]">
+                          SB Teilkasko (€)
+                        </span>
+                        <input
+                          type="number"
+                          value={insuranceConfig.cvbPremium.deductibleTK}
+                          onChange={(e) =>
+                            setInsuranceConfig({
+                              ...insuranceConfig,
+                              cvbPremium: {
+                                ...insuranceConfig.cvbPremium,
+                                deductibleTK: Number(e.target.value),
+                              },
+                            })
+                          }
+                          className="w-full rounded-xl border bg-white px-3 py-2"
+                        />
+                      </label>
+                      <label className="space-y-1">
+                        <span className="font-bold text-[#384808]">
+                          Wohnmobil Max V (€)
+                        </span>
+                        <input
+                          type="number"
+                          step="1000"
+                          value={insuranceConfig.cvbPremium.wohnmobil.maxV}
+                          onChange={(e) =>
+                            setInsuranceConfig({
+                              ...insuranceConfig,
+                              cvbPremium: {
+                                ...insuranceConfig.cvbPremium,
+                                wohnmobil: {
+                                  ...insuranceConfig.cvbPremium.wohnmobil,
+                                  maxV: Number(e.target.value),
+                                },
                               },
                             })
                           }
@@ -1102,6 +1208,29 @@ export const AdminPanel = ({ initialAuthenticated }) => {
                       </label>
                       <label className="space-y-1">
                         <span className="font-bold text-[#384808]">
+                          Wohnwagen Max V (€)
+                        </span>
+                        <input
+                          type="number"
+                          step="1000"
+                          value={insuranceConfig.cvbPremium.wohnwagen.maxV}
+                          onChange={(e) =>
+                            setInsuranceConfig({
+                              ...insuranceConfig,
+                              cvbPremium: {
+                                ...insuranceConfig.cvbPremium,
+                                wohnwagen: {
+                                  ...insuranceConfig.cvbPremium.wohnwagen,
+                                  maxV: Number(e.target.value),
+                                },
+                              },
+                            })
+                          }
+                          className="w-full rounded-xl border bg-white px-3 py-2"
+                        />
+                      </label>
+                      <label className="space-y-1">
+                        <span className="font-bold text-[#384808]">
                           Wohnwagen Preis (€)
                         </span>
                         <input
@@ -1117,26 +1246,6 @@ export const AdminPanel = ({ initialAuthenticated }) => {
                                   ...insuranceConfig.cvbPremium.wohnwagen,
                                   price: Number(e.target.value),
                                 },
-                              },
-                            })
-                          }
-                          className="w-full rounded-xl border bg-white px-3 py-2"
-                        />
-                      </label>
-                      <label className="space-y-1">
-                        <span className="font-bold text-[#384808]">
-                          Max. Bruttowert (€)
-                        </span>
-                        <input
-                          type="number"
-                          step="1000"
-                          value={insuranceConfig.cvbPremium.maxGrossValue}
-                          onChange={(e) =>
-                            setInsuranceConfig({
-                              ...insuranceConfig,
-                              cvbPremium: {
-                                ...insuranceConfig.cvbPremium,
-                                maxGrossValue: Number(e.target.value),
                               },
                             })
                           }
@@ -1170,28 +1279,9 @@ export const AdminPanel = ({ initialAuthenticated }) => {
                   {/* CVB-Flex */}
                   <div className="rounded-2xl border border-[#A09048]/30 bg-[#F4F2E6]/40 p-5 space-y-4">
                     <h3 className="font-spartan font-black text-lg text-[#384808]">
-                      CVB-Flex (Formel-Parameter)
+                      CVB-Flex (Formel-Parameter 2027)
                     </h3>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
-                      <label className="space-y-1">
-                        <span className="font-bold text-[#384808]">
-                          Selbstbeteiligung (€)
-                        </span>
-                        <input
-                          type="number"
-                          value={insuranceConfig.cvbFlex.deductible}
-                          onChange={(e) =>
-                            setInsuranceConfig({
-                              ...insuranceConfig,
-                              cvbFlex: {
-                                ...insuranceConfig.cvbFlex,
-                                deductible: Number(e.target.value),
-                              },
-                            })
-                          }
-                          className="w-full rounded-xl border bg-white px-3 py-2"
-                        />
-                      </label>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                       <label className="space-y-1">
                         <span className="font-bold text-[#384808]">
                           Max. Kasko-Alter (Jahre)
@@ -1213,31 +1303,20 @@ export const AdminPanel = ({ initialAuthenticated }) => {
                       </label>
                       <label className="space-y-1">
                         <span className="font-bold text-[#384808]">
-                          21+ Haftpflicht-Zuschlag (%)
+                          Label &gt;10 Jahre
                         </span>
                         <input
-                          type="number"
-                          value={
-                            insuranceConfig.cvbFlex.wohnmobil
-                              .liabilityOnlySurchargePercent
-                          }
-                          onChange={(e) => {
-                            const pct = Number(e.target.value);
+                          type="text"
+                          value={insuranceConfig.cvbFlex.liabilityOnlyLabel || ''}
+                          onChange={(e) =>
                             setInsuranceConfig({
                               ...insuranceConfig,
                               cvbFlex: {
                                 ...insuranceConfig.cvbFlex,
-                                wohnmobil: {
-                                  ...insuranceConfig.cvbFlex.wohnmobil,
-                                  liabilityOnlySurchargePercent: pct,
-                                },
-                                wohnwagen: {
-                                  ...insuranceConfig.cvbFlex.wohnwagen,
-                                  liabilityOnlySurchargePercent: pct,
-                                },
+                                liabilityOnlyLabel: e.target.value,
                               },
-                            });
-                          }}
+                            })
+                          }
                           className="w-full rounded-xl border bg-white px-3 py-2"
                         />
                       </label>
@@ -1246,15 +1325,55 @@ export const AdminPanel = ({ initialAuthenticated }) => {
                     {/* Flex Wohnmobil */}
                     <div className="pt-2 border-t border-[#A09048]/20">
                       <p className="text-xs font-black text-[#384808] mb-2">
-                        Wohnmobil-Parameter
+                        Wohnmobil-Formel: (Basis + max(V, MinV) × Satz/1000 × Faktor1) × Faktor2
                       </p>
                       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
                         <label className="space-y-1">
-                          <span>Haftpflicht (€)</span>
+                          <span>SB Vollkasko (€)</span>
+                          <input
+                            type="number"
+                            value={insuranceConfig.cvbFlex.wohnmobil.deductibleVK}
+                            onChange={(e) =>
+                              setInsuranceConfig({
+                                ...insuranceConfig,
+                                cvbFlex: {
+                                  ...insuranceConfig.cvbFlex,
+                                  wohnmobil: {
+                                    ...insuranceConfig.cvbFlex.wohnmobil,
+                                    deductibleVK: Number(e.target.value),
+                                  },
+                                },
+                              })
+                            }
+                            className="w-full rounded-xl border bg-white px-3 py-1.5"
+                          />
+                        </label>
+                        <label className="space-y-1">
+                          <span>SB Teilkasko (€)</span>
+                          <input
+                            type="number"
+                            value={insuranceConfig.cvbFlex.wohnmobil.deductibleTK}
+                            onChange={(e) =>
+                              setInsuranceConfig({
+                                ...insuranceConfig,
+                                cvbFlex: {
+                                  ...insuranceConfig.cvbFlex,
+                                  wohnmobil: {
+                                    ...insuranceConfig.cvbFlex.wohnmobil,
+                                    deductibleTK: Number(e.target.value),
+                                  },
+                                },
+                              })
+                            }
+                            className="w-full rounded-xl border bg-white px-3 py-1.5"
+                          />
+                        </label>
+                        <label className="space-y-1">
+                          <span>Basis-Festbetrag (€)</span>
                           <input
                             type="number"
                             step="0.01"
-                            value={insuranceConfig.cvbFlex.wohnmobil.haftpflicht}
+                            value={insuranceConfig.cvbFlex.wohnmobil.baseFixed}
                             onChange={(e) =>
                               setInsuranceConfig({
                                 ...insuranceConfig,
@@ -1262,7 +1381,7 @@ export const AdminPanel = ({ initialAuthenticated }) => {
                                   ...insuranceConfig.cvbFlex,
                                   wohnmobil: {
                                     ...insuranceConfig.cvbFlex.wohnmobil,
-                                    haftpflicht: Number(e.target.value),
+                                    baseFixed: Number(e.target.value),
                                   },
                                 },
                               })
@@ -1271,13 +1390,11 @@ export const AdminPanel = ({ initialAuthenticated }) => {
                           />
                         </label>
                         <label className="space-y-1">
-                          <span>Kasko-Satz (%)</span>
+                          <span>Satz pro 1.000 €</span>
                           <input
                             type="number"
-                            step="0.1"
-                            value={
-                              insuranceConfig.cvbFlex.wohnmobil.kaskoRatePercent
-                            }
+                            step="0.001"
+                            value={insuranceConfig.cvbFlex.wohnmobil.perThousandRate}
                             onChange={(e) =>
                               setInsuranceConfig({
                                 ...insuranceConfig,
@@ -1285,7 +1402,7 @@ export const AdminPanel = ({ initialAuthenticated }) => {
                                   ...insuranceConfig.cvbFlex,
                                   wohnmobil: {
                                     ...insuranceConfig.cvbFlex.wohnmobil,
-                                    kaskoRatePercent: Number(e.target.value),
+                                    perThousandRate: Number(e.target.value),
                                   },
                                 },
                               })
@@ -1294,35 +1411,11 @@ export const AdminPanel = ({ initialAuthenticated }) => {
                           />
                         </label>
                         <label className="space-y-1">
-                          <span>Schutzbrief (€)</span>
-                          <input
-                            type="number"
-                            step="0.01"
-                            value={insuranceConfig.cvbFlex.wohnmobil.schutzbrief}
-                            onChange={(e) =>
-                              setInsuranceConfig({
-                                ...insuranceConfig,
-                                cvbFlex: {
-                                  ...insuranceConfig.cvbFlex,
-                                  wohnmobil: {
-                                    ...insuranceConfig.cvbFlex.wohnmobil,
-                                    schutzbrief: Number(e.target.value),
-                                  },
-                                },
-                              })
-                            }
-                            className="w-full rounded-xl border bg-white px-3 py-1.5"
-                          />
-                        </label>
-                        <label className="space-y-1">
-                          <span>Veruntreuung bis 60k (€)</span>
+                          <span>Faktor 1 (z. B. 1.15)</span>
                           <input
                             type="number"
                             step="0.01"
-                            value={
-                              insuranceConfig.cvbFlex.wohnmobil
-                                .veruntreuungStep1Surcharge
-                            }
+                            value={insuranceConfig.cvbFlex.wohnmobil.factor1}
                             onChange={(e) =>
                               setInsuranceConfig({
                                 ...insuranceConfig,
@@ -1330,9 +1423,7 @@ export const AdminPanel = ({ initialAuthenticated }) => {
                                   ...insuranceConfig.cvbFlex,
                                   wohnmobil: {
                                     ...insuranceConfig.cvbFlex.wohnmobil,
-                                    veruntreuungStep1Surcharge: Number(
-                                      e.target.value
-                                    ),
+                                    factor1: Number(e.target.value),
                                   },
                                 },
                               })
@@ -1341,14 +1432,11 @@ export const AdminPanel = ({ initialAuthenticated }) => {
                           />
                         </label>
                         <label className="space-y-1">
-                          <span>Veruntreuung 61k–75k (€)</span>
+                          <span>Faktor 2 (z. B. 1.1)</span>
                           <input
                             type="number"
                             step="0.01"
-                            value={
-                              insuranceConfig.cvbFlex.wohnmobil
-                                .veruntreuungStep2Surcharge
-                            }
+                            value={insuranceConfig.cvbFlex.wohnmobil.factor2}
                             onChange={(e) =>
                               setInsuranceConfig({
                                 ...insuranceConfig,
@@ -1356,9 +1444,7 @@ export const AdminPanel = ({ initialAuthenticated }) => {
                                   ...insuranceConfig.cvbFlex,
                                   wohnmobil: {
                                     ...insuranceConfig.cvbFlex.wohnmobil,
-                                    veruntreuungStep2Surcharge: Number(
-                                      e.target.value
-                                    ),
+                                    factor2: Number(e.target.value),
                                   },
                                 },
                               })
@@ -1367,14 +1453,11 @@ export const AdminPanel = ({ initialAuthenticated }) => {
                           />
                         </label>
                         <label className="space-y-1">
-                          <span>Veruntreuung Max V (€)</span>
+                          <span>Min V (€)</span>
                           <input
                             type="number"
                             step="1000"
-                            value={
-                              insuranceConfig.cvbFlex.wohnmobil
-                                .veruntreuungStep2MaxV
-                            }
+                            value={insuranceConfig.cvbFlex.wohnmobil.minV}
                             onChange={(e) =>
                               setInsuranceConfig({
                                 ...insuranceConfig,
@@ -1382,9 +1465,49 @@ export const AdminPanel = ({ initialAuthenticated }) => {
                                   ...insuranceConfig.cvbFlex,
                                   wohnmobil: {
                                     ...insuranceConfig.cvbFlex.wohnmobil,
-                                    veruntreuungStep2MaxV: Number(
-                                      e.target.value
-                                    ),
+                                    minV: Number(e.target.value),
+                                  },
+                                },
+                              })
+                            }
+                            className="w-full rounded-xl border bg-white px-3 py-1.5"
+                          />
+                        </label>
+                        <label className="space-y-1">
+                          <span>Max V (€)</span>
+                          <input
+                            type="number"
+                            step="1000"
+                            value={insuranceConfig.cvbFlex.wohnmobil.maxV}
+                            onChange={(e) =>
+                              setInsuranceConfig({
+                                ...insuranceConfig,
+                                cvbFlex: {
+                                  ...insuranceConfig.cvbFlex,
+                                  wohnmobil: {
+                                    ...insuranceConfig.cvbFlex.wohnmobil,
+                                    maxV: Number(e.target.value),
+                                  },
+                                },
+                              })
+                            }
+                            className="w-full rounded-xl border bg-white px-3 py-1.5"
+                          />
+                        </label>
+                        <label className="space-y-1">
+                          <span>Nur Haftpflicht (€)</span>
+                          <input
+                            type="number"
+                            step="0.01"
+                            value={insuranceConfig.cvbFlex.wohnmobil.liabilityOnlyPrice}
+                            onChange={(e) =>
+                              setInsuranceConfig({
+                                ...insuranceConfig,
+                                cvbFlex: {
+                                  ...insuranceConfig.cvbFlex,
+                                  wohnmobil: {
+                                    ...insuranceConfig.cvbFlex.wohnmobil,
+                                    liabilityOnlyPrice: Number(e.target.value),
                                   },
                                 },
                               })
@@ -1398,15 +1521,14 @@ export const AdminPanel = ({ initialAuthenticated }) => {
                     {/* Flex Wohnwagen */}
                     <div className="pt-2 border-t border-[#A09048]/20">
                       <p className="text-xs font-black text-[#384808] mb-2">
-                        Wohnwagen-Parameter
+                        Wohnwagen-Formel: (Basis + max(V, MinV) × Satz/1000 × Faktor1) × Faktor2
                       </p>
                       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
                         <label className="space-y-1">
-                          <span>Haftpflicht (€)</span>
+                          <span>SB Vollkasko (€)</span>
                           <input
                             type="number"
-                            step="0.01"
-                            value={insuranceConfig.cvbFlex.wohnwagen.haftpflicht}
+                            value={insuranceConfig.cvbFlex.wohnwagen.deductibleVK}
                             onChange={(e) =>
                               setInsuranceConfig({
                                 ...insuranceConfig,
@@ -1414,7 +1536,7 @@ export const AdminPanel = ({ initialAuthenticated }) => {
                                   ...insuranceConfig.cvbFlex,
                                   wohnwagen: {
                                     ...insuranceConfig.cvbFlex.wohnwagen,
-                                    haftpflicht: Number(e.target.value),
+                                    deductibleVK: Number(e.target.value),
                                   },
                                 },
                               })
@@ -1423,13 +1545,10 @@ export const AdminPanel = ({ initialAuthenticated }) => {
                           />
                         </label>
                         <label className="space-y-1">
-                          <span>Kasko-Satz (%)</span>
+                          <span>SB Teilkasko (€)</span>
                           <input
                             type="number"
-                            step="0.1"
-                            value={
-                              insuranceConfig.cvbFlex.wohnwagen.kaskoRatePercent
-                            }
+                            value={insuranceConfig.cvbFlex.wohnwagen.deductibleTK}
                             onChange={(e) =>
                               setInsuranceConfig({
                                 ...insuranceConfig,
@@ -1437,7 +1556,7 @@ export const AdminPanel = ({ initialAuthenticated }) => {
                                   ...insuranceConfig.cvbFlex,
                                   wohnwagen: {
                                     ...insuranceConfig.cvbFlex.wohnwagen,
-                                    kaskoRatePercent: Number(e.target.value),
+                                    deductibleTK: Number(e.target.value),
                                   },
                                 },
                               })
@@ -1446,14 +1565,11 @@ export const AdminPanel = ({ initialAuthenticated }) => {
                           />
                         </label>
                         <label className="space-y-1">
-                          <span>Veruntreuung bis 15k (€)</span>
+                          <span>Basis-Festbetrag (€)</span>
                           <input
                             type="number"
                             step="0.01"
-                            value={
-                              insuranceConfig.cvbFlex.wohnwagen
-                                .veruntreuungStep1Surcharge
-                            }
+                            value={insuranceConfig.cvbFlex.wohnwagen.baseFixed}
                             onChange={(e) =>
                               setInsuranceConfig({
                                 ...insuranceConfig,
@@ -1461,9 +1577,7 @@ export const AdminPanel = ({ initialAuthenticated }) => {
                                   ...insuranceConfig.cvbFlex,
                                   wohnwagen: {
                                     ...insuranceConfig.cvbFlex.wohnwagen,
-                                    veruntreuungStep1Surcharge: Number(
-                                      e.target.value
-                                    ),
+                                    baseFixed: Number(e.target.value),
                                   },
                                 },
                               })
@@ -1472,14 +1586,11 @@ export const AdminPanel = ({ initialAuthenticated }) => {
                           />
                         </label>
                         <label className="space-y-1">
-                          <span>Veruntreuung 16k–25k (€)</span>
+                          <span>Satz pro 1.000 €</span>
                           <input
                             type="number"
-                            step="0.01"
-                            value={
-                              insuranceConfig.cvbFlex.wohnwagen
-                                .veruntreuungStep2Surcharge
-                            }
+                            step="0.001"
+                            value={insuranceConfig.cvbFlex.wohnwagen.perThousandRate}
                             onChange={(e) =>
                               setInsuranceConfig({
                                 ...insuranceConfig,
@@ -1487,9 +1598,112 @@ export const AdminPanel = ({ initialAuthenticated }) => {
                                   ...insuranceConfig.cvbFlex,
                                   wohnwagen: {
                                     ...insuranceConfig.cvbFlex.wohnwagen,
-                                    veruntreuungStep2Surcharge: Number(
-                                      e.target.value
-                                    ),
+                                    perThousandRate: Number(e.target.value),
+                                  },
+                                },
+                              })
+                            }
+                            className="w-full rounded-xl border bg-white px-3 py-1.5"
+                          />
+                        </label>
+                        <label className="space-y-1">
+                          <span>Faktor 1</span>
+                          <input
+                            type="number"
+                            step="0.01"
+                            value={insuranceConfig.cvbFlex.wohnwagen.factor1}
+                            onChange={(e) =>
+                              setInsuranceConfig({
+                                ...insuranceConfig,
+                                cvbFlex: {
+                                  ...insuranceConfig.cvbFlex,
+                                  wohnwagen: {
+                                    ...insuranceConfig.cvbFlex.wohnwagen,
+                                    factor1: Number(e.target.value),
+                                  },
+                                },
+                              })
+                            }
+                            className="w-full rounded-xl border bg-white px-3 py-1.5"
+                          />
+                        </label>
+                        <label className="space-y-1">
+                          <span>Faktor 2</span>
+                          <input
+                            type="number"
+                            step="0.01"
+                            value={insuranceConfig.cvbFlex.wohnwagen.factor2}
+                            onChange={(e) =>
+                              setInsuranceConfig({
+                                ...insuranceConfig,
+                                cvbFlex: {
+                                  ...insuranceConfig.cvbFlex,
+                                  wohnwagen: {
+                                    ...insuranceConfig.cvbFlex.wohnwagen,
+                                    factor2: Number(e.target.value),
+                                  },
+                                },
+                              })
+                            }
+                            className="w-full rounded-xl border bg-white px-3 py-1.5"
+                          />
+                        </label>
+                        <label className="space-y-1">
+                          <span>Min V (€)</span>
+                          <input
+                            type="number"
+                            step="1000"
+                            value={insuranceConfig.cvbFlex.wohnwagen.minV}
+                            onChange={(e) =>
+                              setInsuranceConfig({
+                                ...insuranceConfig,
+                                cvbFlex: {
+                                  ...insuranceConfig.cvbFlex,
+                                  wohnwagen: {
+                                    ...insuranceConfig.cvbFlex.wohnwagen,
+                                    minV: Number(e.target.value),
+                                  },
+                                },
+                              })
+                            }
+                            className="w-full rounded-xl border bg-white px-3 py-1.5"
+                          />
+                        </label>
+                        <label className="space-y-1">
+                          <span>Max V (€)</span>
+                          <input
+                            type="number"
+                            step="1000"
+                            value={insuranceConfig.cvbFlex.wohnwagen.maxV}
+                            onChange={(e) =>
+                              setInsuranceConfig({
+                                ...insuranceConfig,
+                                cvbFlex: {
+                                  ...insuranceConfig.cvbFlex,
+                                  wohnwagen: {
+                                    ...insuranceConfig.cvbFlex.wohnwagen,
+                                    maxV: Number(e.target.value),
+                                  },
+                                },
+                              })
+                            }
+                            className="w-full rounded-xl border bg-white px-3 py-1.5"
+                          />
+                        </label>
+                        <label className="space-y-1">
+                          <span>Nur Haftpflicht (€)</span>
+                          <input
+                            type="number"
+                            step="0.01"
+                            value={insuranceConfig.cvbFlex.wohnwagen.liabilityOnlyPrice}
+                            onChange={(e) =>
+                              setInsuranceConfig({
+                                ...insuranceConfig,
+                                cvbFlex: {
+                                  ...insuranceConfig.cvbFlex,
+                                  wohnwagen: {
+                                    ...insuranceConfig.cvbFlex.wohnwagen,
+                                    liabilityOnlyPrice: Number(e.target.value),
                                   },
                                 },
                               })
@@ -1500,26 +1714,55 @@ export const AdminPanel = ({ initialAuthenticated }) => {
                       </div>
                     </div>
 
-                    <div>
-                      <span className="block text-xs font-bold text-[#384808] mb-1">
-                        Leistungs-Stichpunkte (eine Zeile pro Punkt)
-                      </span>
-                      <textarea
-                        rows={4}
-                        value={insuranceConfig.cvbFlex.benefits.join('\n')}
-                        onChange={(e) =>
-                          setInsuranceConfig({
-                            ...insuranceConfig,
-                            cvbFlex: {
-                              ...insuranceConfig.cvbFlex,
-                              benefits: e.target.value
-                                .split('\n')
-                                .filter((l) => l.trim() !== ''),
-                            },
-                          })
-                        }
-                        className="w-full rounded-xl border bg-white p-2.5 text-xs"
-                      />
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <span className="block text-xs font-bold text-[#384808] mb-1">
+                          Leistungs-Stichpunkte Wohnmobil (eine Zeile pro Punkt)
+                        </span>
+                        <textarea
+                          rows={5}
+                          value={(insuranceConfig.cvbFlex.wohnmobil.benefits || []).join('\n')}
+                          onChange={(e) =>
+                            setInsuranceConfig({
+                              ...insuranceConfig,
+                              cvbFlex: {
+                                ...insuranceConfig.cvbFlex,
+                                wohnmobil: {
+                                  ...insuranceConfig.cvbFlex.wohnmobil,
+                                  benefits: e.target.value
+                                    .split('\n')
+                                    .filter((l) => l.trim() !== ''),
+                                },
+                              },
+                            })
+                          }
+                          className="w-full rounded-xl border bg-white p-2.5 text-xs"
+                        />
+                      </div>
+                      <div>
+                        <span className="block text-xs font-bold text-[#384808] mb-1">
+                          Leistungs-Stichpunkte Wohnwagen (eine Zeile pro Punkt)
+                        </span>
+                        <textarea
+                          rows={5}
+                          value={(insuranceConfig.cvbFlex.wohnwagen.benefits || []).join('\n')}
+                          onChange={(e) =>
+                            setInsuranceConfig({
+                              ...insuranceConfig,
+                              cvbFlex: {
+                                ...insuranceConfig.cvbFlex,
+                                wohnwagen: {
+                                  ...insuranceConfig.cvbFlex.wohnwagen,
+                                  benefits: e.target.value
+                                    .split('\n')
+                                    .filter((l) => l.trim() !== ''),
+                                },
+                              },
+                            })
+                          }
+                          className="w-full rounded-xl border bg-white p-2.5 text-xs"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
