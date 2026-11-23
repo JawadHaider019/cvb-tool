@@ -13,7 +13,7 @@ export const ComparisonTableSection = ({ onSelectPlan }) => {
       id: 'plus',
       name: 'CVB-Plus',
       subtitle: 'inkl. Veruntreuung',
-      price: '208 €',
+      price: '250 €',
       priceSub: 'pro Monat',
       popular: false,
       btnClass: 'bg-[#F4F2E6] hover:bg-[#384808] text-[#384808] hover:text-white',
@@ -22,7 +22,7 @@ export const ComparisonTableSection = ({ onSelectPlan }) => {
       id: 'premium',
       name: 'CVB-Premium',
       subtitle: 'inkl. Veruntreuung',
-      price: '271 €',
+      price: '270 €',
       priceSub: 'pro Monat',
       popular: true,
       btnClass: 'bg-[#384808] hover:bg-[#2D3A06] text-white shadow-sm',
@@ -30,8 +30,8 @@ export const ComparisonTableSection = ({ onSelectPlan }) => {
     {
       id: 'flex',
       name: 'CVB-Flex',
-      subtitle: 'Variabel',
-      price: 'ab 166 €',
+      subtitle: 'inkl. Veruntreuung',
+      price: 'ab 184 €',
       priceSub: 'pro Monat',
       popular: false,
       btnClass: 'bg-[#F4F2E6] hover:bg-[#384808] text-[#384808] hover:text-white',
@@ -58,21 +58,21 @@ export const ComparisonTableSection = ({ onSelectPlan }) => {
       tooltip: 'Selbstbeteiligung im Kaskofall',
       plus: '1.500 € / Schadensfall',
       premium: '1.500 € / Schadensfall',
-      flex: 'flex bis 2.500 €',
+      flex: '2.500 € VK / 1.500 € TK',
     },
     {
       label: 'Europäischer Schutzbrief',
       tooltip: 'Pannen- und Unfallhilfe europaweit',
-      plus: '89,90 € / Fahrzeug',
+      plus: 'ab 89,90 € / Fahrzeug',
       premium: 'Ja',
-      flex: '89,90 € / Fahrzeug',
+      flex: 'ab 89,90 € / Fahrzeug',
     },
     {
       label: 'Veruntreuungsversicherung',
       tooltip: 'Schutz gegen Unterschlagung bei Vermietung',
       plus: 'Ja',
       premium: 'Ja',
-      flex: 'wahlweise',
+      flex: 'Ja',
     },
     {
       label: 'Saisonkennzeichen möglich',
@@ -105,9 +105,9 @@ export const ComparisonTableSection = ({ onSelectPlan }) => {
     {
       label: 'Angabe Jahrespreis',
       tooltip: 'Typischer jährlicher Richtwert inklusive Versicherungssteuer',
-      plus: 'ab 2.494,24 €',
+      plus: 'ab 2.993,09 €',
       premium: '3.250,00 €',
-      flex: '2.000,00 €',
+      flex: 'ab 2.207,65 €',
       isHighlight: true,
     },
   ];
@@ -179,7 +179,9 @@ export const ComparisonTableSection = ({ onSelectPlan }) => {
               </p>
             </div>
             <a
-              href="#kontakt"
+              href="https://caravan-vermieter-bund.de/mitglied-werden"
+              target="_blank"
+              rel="noopener noreferrer"
               className="shrink-0 text-xs font-spartan font-bold uppercase tracking-wider px-5 py-2.5 rounded-full bg-white border border-[#A09048]/40 text-[#384808] hover:bg-[#384808] hover:text-white transition-colors shadow-2xs"
             >
               Mitglied werden
@@ -311,7 +313,7 @@ export const ComparisonTableSection = ({ onSelectPlan }) => {
                         </span>
                         <span className="text-[11px] text-[#585828] block">inkl. Veruntreuung</span>
                         <div className="pt-2">
-                          <span className="font-spartan font-black text-3xl text-[#384808]">208 €</span>
+                          <span className="font-spartan font-black text-3xl text-[#384808]">250 €</span>
                           <span className="text-[11px] text-[#585828] block">pro Monat</span>
                         </div>
                         <button
@@ -329,7 +331,7 @@ export const ComparisonTableSection = ({ onSelectPlan }) => {
                         </span>
                         <span className="text-[11px] text-[#585828] block">inkl. Veruntreuung</span>
                         <div className="pt-2">
-                          <span className="font-spartan font-black text-3xl text-[#384808]">271 €</span>
+                          <span className="font-spartan font-black text-3xl text-[#384808]">270 €</span>
                           <span className="text-[11px] text-[#585828] block">pro Monat</span>
                         </div>
                         <button
@@ -345,9 +347,9 @@ export const ComparisonTableSection = ({ onSelectPlan }) => {
                         <span className="font-spartan font-black text-xl uppercase text-[#384808] block">
                           CVB-Flex
                         </span>
-                        <span className="text-[11px] text-[#585828] block">Variabel</span>
+                        <span className="text-[11px] text-[#585828] block">inkl. Veruntreuung</span>
                         <div className="pt-2">
-                          <span className="font-spartan font-black text-3xl text-[#384808]">ab 166 €</span>
+                          <span className="font-spartan font-black text-3xl text-[#384808]">ab 184 €</span>
                           <span className="text-[11px] text-[#585828] block">pro Monat</span>
                         </div>
                         <button

@@ -12,7 +12,7 @@ import {
   Repeat,
   Sparkles,
   Sliders,
-  KeyRound,
+  Send,
   UserPlus,
 } from 'lucide-react';
 import { SectionHeader } from './SectionHeader.jsx';
@@ -201,13 +201,15 @@ export const BesserVermietenSection = () => {
                 </div>
 
                 <div className="pt-5 border-t border-[#A09048]/20">
-                  <button
-                    onClick={() => scrollTo('versicherungen')}
+                  <a
+                    href="https://caravan-vermieter-bund.de/leistungen"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-xs font-spartan font-bold uppercase tracking-wider text-[#384808] hover:text-[#889028] transition-colors group/btn cursor-pointer"
                   >
                     <span>Alle CVB-Vorteile entdecken</span>
                     <ArrowRight size={15} className="group-hover/btn:translate-x-1 transition-transform" />
-                  </button>
+                  </a>
                 </div>
               </div>
             </TiltCard3D>
@@ -348,7 +350,7 @@ export const BesserVermietenSection = () => {
                   <div className="space-y-6">
                     <div className="flex items-start justify-between">
                       <div className="w-13 h-13 rounded-2xl bg-[#889028] text-white flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
-                        <KeyRound size={24} strokeWidth={2.2} />
+                        <Send size={24} strokeWidth={2.2} />
                       </div>
                       <span className="font-spartan font-black text-4xl leading-none text-[#384808]/15 group-hover:text-[#A09048]/45 transition-colors select-none">
                         02
@@ -360,21 +362,19 @@ export const BesserVermietenSection = () => {
                         Schritt 02
                       </span>
                       <p className="text-sm sm:text-base text-[#384808] font-semibold leading-relaxed">
-                        Du bist bereits Kunde? Dann melde dich mit den Zugangsdaten an und folge den Informationen.
+                        Du bist bereits CVB-Kunde? Wähle Deinen Tarif aus und sende uns Deinen Wunsch zu.
                       </p>
                     </div>
                   </div>
 
                   <div className="pt-6 border-t border-[#A09048]/15 mt-6">
-                    <a
-                      href="https://caravanvermieterbund.de/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-xs font-spartan font-bold uppercase tracking-wider text-[#384808] hover:text-[#889028] transition-colors group/btn"
+                    <button
+                      onClick={() => scrollTo('versicherungen')}
+                      className="inline-flex items-center gap-2 text-xs font-spartan font-bold uppercase tracking-wider text-[#384808] hover:text-[#889028] transition-colors group/btn cursor-pointer"
                     >
-                      <span>Kunden-Login</span>
+                      <span>Tarif auswählen</span>
                       <ArrowRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
-                    </a>
+                    </button>
                   </div>
                 </div>
               </TiltCard3D>

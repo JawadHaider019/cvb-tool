@@ -86,7 +86,7 @@ export const defaultInsuranceConfig = {
         'Kasko für Fahrzeuge bis 10 Jahre',
         'Hagelschäden: 3.000 € Selbstbeteiligung je Schaden',
         'Saisonkennzeichen möglich (monatsweise Berechnung, Mindestprämie für 6 Monate)',
-        'Optional: Schutzbrief 89,90 €/Jahr, Rechtsschutz 108 €/Jahr, SB-Reduzierer für Mieter',
+        'Optional: Schutzbrief ab 89,90 €/Jahr, Rechtsschutz 108 €/Jahr, SB-Reduzierer für Mieter',
       ],
     },
     wohnwagen: {
@@ -131,7 +131,7 @@ export function createDefaultDatabase() {
         ctaText: 'Tarif jetzt berechnen',
         secondaryCtaText: 'Fragen & Beratung',
         image: '/images/luxury_camper_hero.jpg',
-        imageAlt: 'Wohnmobil für die Vermietung am See bei Sonnenuntergang',
+        imageAlt: 'Wohnmobile vor alpiner Bergkulisse in der Abenddämmerung',
       },
       {
         id: 'intro',
@@ -256,8 +256,40 @@ export function createDefaultDatabase() {
         id: 'faq-5',
         question: 'Was ist beim Versicherungswechsel zu beachten?',
         answer:
-          'Achten Sie auf die Kündigungsfristen Ihres bisherigen Versicherers sowie auf die korrekte Eintragung als Selbstfahrervermietfahrzeug bei der Zulassungsstelle. Bei Fragen begleiten wir Sie Schritt für Schritt.',
+          'Achten Sie auf die Kündigungsfristen Ihres bisherigen Versicherers sowie auf die korrekte Eintragung als Selbstfahrervermietfahrzeug bei der Zulassungsstelle. Bei Fragen begleiten wir Sie Schritt für Schritt. Die neue Gesellschaft fragt nach der RENTA, dem Schadensverlauf der letzten 24 Monate bei der Vorversicherung. Diese ist beim Versicherungswechsel zu erbringen.',
         sortOrder: 5,
+        visible: true,
+      },
+      {
+        id: 'faq-6',
+        question: 'Zusatzversicherungen',
+        answer:
+          'Über den CVB erhalten unsere Kunden die Möglichkeit, eine „Selbstbehaltversicherung“ mit oder ohne Reiserücktrittsversicherung anbieten zu können. Damit kann der Mieter seinen Selbstbehalt bei einem Kaskoschaden auf 250,- € Eigenanteil/Schadensereignis versichern.',
+        sortOrder: 6,
+        visible: true,
+      },
+      {
+        id: 'faq-7',
+        question: 'Pannenschutzbrief',
+        answer:
+          'Wer vermietet, sollte einen Pannenschutzbrief für sein Fahrzeug haben. Dieser unterstützt bei einer Panne in Europa und koordiniert die Bergung oder das Abschleppen nach einer Panne. Ggf. werden die Gäste in einem Hotel untergebracht, wieder nach Hause gebracht usw. Dies kann der Mieter in einem fernen Land meist nicht organisieren.\nDer Schutzbrief ist keine Kostenübernahme-Flat.\nBeim Tarif CVB-Premium ist der Pannenschutzbrief enthalten. Bei allen anderen Lösungen sollte der Schutzbrief hinzugebucht werden. Der CVB bietet zwei Lösungen ab 89,90 € / Jahr an.',
+        sortOrder: 7,
+        visible: true,
+      },
+      {
+        id: 'faq-8',
+        question: 'CVB-Tipp: Richtig wechseln',
+        answer:
+          'Wer seinen Schadensverlauf nicht kennt, kann nicht sicher sein, dass die neue Gesellschaft den Vermieter nimmt. Daher empfehlen wir folgende Vorgehensweise:\n\n1. RENTA bei der Vorversicherung anfragen.\n2. Mit der RENTA bei der neuen Gesellschaft anfragen.\n3. Bei Zusage der neuen Gesellschaft kann die bestehende Versicherung fristgerecht gekündigt werden.\n\nBei belasteter RENTA erst kündigen, wenn die neue Gesellschaft zugesagt hat.',
+        sortOrder: 8,
+        visible: true,
+      },
+      {
+        id: 'faq-9',
+        question: 'Was ist die RENTA?',
+        answer:
+          'Die RENTA ist der Schadensverlauf der letzten 24 Monate beim Vorversicherer. Die neue Gesellschaft behält sich vor, schadensträchtige Kunden nicht anzunehmen. Die RENTA kann beim Vorversicherer bzw. der aktuellen Gesellschaft unkompliziert angefragt werden.',
+        sortOrder: 9,
         visible: true,
       },
     ],

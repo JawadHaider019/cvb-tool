@@ -62,9 +62,9 @@ export const HeroSection = ({ section }) => {
         className="absolute inset-0 w-full h-full pointer-events-none will-change-transform z-0 overflow-hidden"
       >
         <img
-          src={section?.image || '/images/luxury_motorhome_alps.jpg'}
+          src={section?.image || '/images/luxury_camper_hero.jpg'}
           alt="Modernes Wohnmobil für die Selbstfahrervermietung"
-          className="w-full h-full object-cover object-[72%_center] md:object-[82%_center] lg:object-[78%_center]"
+          className="w-full h-full object-cover object-[22%_center] md:object-[28%_center] lg:object-center"
         />
         {/* Dark Olive Lighter Overlay - lets the scenic background shine through vividly */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#172002]/75 via-[#242E05]/50 via-55% to-[#172002]/15 md:to-transparent pointer-events-none" />
@@ -90,12 +90,12 @@ export const HeroSection = ({ section }) => {
               delay: 0.15,
               ease: [0.16, 1, 0.3, 1],
             }}
-            className="font-spartan font-black uppercase text-[28px] xs:text-[34px] sm:text-5xl lg:text-6xl xl:text-[72px] leading-[0.98] sm:leading-[0.96] tracking-[-0.025em] mb-6 text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)] break-words"
+            className="font-spartan font-black uppercase text-[34px] min-[400px]:text-[38px] sm:text-5xl lg:text-6xl xl:text-[72px] leading-[0.98] sm:leading-[0.96] tracking-[-0.025em] mb-6 text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)] break-words"
           >
             <span className="block text-white">
               Wohnmobil und Wohnwagen
             </span>
-            <span className="block text-[22px] xs:text-[28px] sm:text-4xl lg:text-5xl xl:text-6xl font-black mt-2 text-white leading-[1.05] break-words">
+            <span className="block text-[27px] min-[400px]:text-[30px] sm:text-4xl lg:text-5xl xl:text-6xl font-black mt-2 text-white leading-[1.05] break-words">
               vermieten{' '}
               <span className="relative inline-block text-[#A09048]">
                 und versichern
@@ -159,13 +159,13 @@ export const HeroSection = ({ section }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-4 w-full sm:w-auto"
+            className="flex flex-row items-center gap-3 sm:gap-4 w-full sm:w-auto"
           >
             <a
               href="https://caravanvermieterbund.de/"
               target="_blank"
               rel="noopener noreferrer"
-              className="tech-cta-primary group animate-cta-pulse cursor-pointer shadow-xl hover:shadow-2xl"
+              className="tech-cta-primary group animate-cta-pulse cursor-pointer shadow-xl hover:shadow-2xl flex-1 sm:flex-none justify-between whitespace-nowrap"
             >
               <span>Mehr erfahren</span>
               <span className="tech-ci">
@@ -175,7 +175,7 @@ export const HeroSection = ({ section }) => {
 
             <button
               onClick={() => scrollTo('faq')}
-              className="tech-cta-ghost cursor-pointer bg-white/10 hover:bg-white/20 text-white border border-[#A09048]/40 shadow-xs"
+              className="tech-cta-ghost shrink-0 whitespace-nowrap cursor-pointer bg-white/10 hover:bg-white/20 text-white border border-[#A09048]/40 shadow-xs"
             >
               <span>Fragen?</span>
             </button>

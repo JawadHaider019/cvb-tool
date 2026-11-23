@@ -492,7 +492,7 @@ try {
   assert.ok(datenschutzHtml.includes('Datenschutzerklärung'), 'Datenschutz page must render');
 
   // Check static comparison table teaser numbers vs 2027 live calculator
-  assert.ok(homeHtml.includes('ab 2.494,24'), 'Comparison matrix retains verbatim static annual teaser');
+  assert.ok(homeHtml.includes('ab 2.993,09'), 'Comparison matrix retains verbatim static annual teaser');
   assert.ok(homeHtml.includes('Jahresbeiträge inkl. Versicherungssteuer'), 'Calculator includes statutory insurance tax note');
 
   // Validation + Bot + Rate Limit tests

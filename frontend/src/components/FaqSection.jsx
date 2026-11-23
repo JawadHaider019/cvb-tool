@@ -51,7 +51,7 @@ export const FaqSection = ({
       const q = faq.question.toLowerCase();
       let categoryId = 'tarife';
 
-      if (q.includes('wechsel') || q.includes('angemeldet') || q.includes('privat')) {
+      if (q.includes('wechsel') || q.includes('angemeldet') || q.includes('privat') || q.includes('renta')) {
         categoryId = 'wechsel';
       } else if (q.includes('wohnwagen') || q.includes('flotte') || q.includes('10 fahrzeuge')) {
         categoryId = 'fahrzeuge';
@@ -294,7 +294,7 @@ export const FaqSection = ({
                                 className="overflow-hidden"
                               >
                                 <div className="px-4 sm:px-8 pb-5 sm:pb-6 pt-2 text-xs sm:text-sm text-[#585828] leading-relaxed border-t border-[#A09048]/15">
-                                  <p>{faq.answer}</p>
+                                  <p className="whitespace-pre-line">{faq.answer}</p>
                                 </div>
                               </motion.div>
                             )}
