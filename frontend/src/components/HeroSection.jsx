@@ -159,18 +159,31 @@ export const HeroSection = ({ section }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex flex-row items-center gap-3 sm:gap-4 w-full sm:w-auto"
+            className="flex flex-row flex-wrap items-center gap-3 sm:gap-4 w-full sm:w-auto"
           >
+            {/* Primary CTA: scrolls to the live price calculator (Project Brief, Phase 1) */}
+            <button
+              type="button"
+              onClick={() =>
+                document.getElementById('rechner')
+                  ? scrollTo('rechner')
+                  : scrollTo('versicherungen')
+              }
+              className="tech-cta-primary group animate-cta-pulse cursor-pointer shadow-xl hover:shadow-2xl basis-full sm:basis-auto justify-between whitespace-nowrap"
+            >
+              <span>{section?.ctaText || 'Tarif jetzt berechnen'}</span>
+              <span className="tech-ci">
+                <ArrowRight size={17} />
+              </span>
+            </button>
+
             <a
               href="https://caravanvermieterbund.de/"
               target="_blank"
               rel="noopener noreferrer"
-              className="tech-cta-primary group animate-cta-pulse cursor-pointer shadow-xl hover:shadow-2xl flex-1 sm:flex-none justify-between whitespace-nowrap"
+              className="tech-cta-ghost flex-1 sm:flex-none justify-center whitespace-nowrap cursor-pointer bg-white/10 hover:bg-white/20 text-white border border-[#A09048]/40 shadow-xs"
             >
               <span>Mehr erfahren</span>
-              <span className="tech-ci">
-                <ArrowRight size={17} />
-              </span>
             </a>
 
             <button
